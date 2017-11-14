@@ -1,10 +1,26 @@
+@media (min-width: 768px){
+    .week-row .col-md-1,
+    .week-row .col-sm-1,
+    .week-row .col-lg-1  {
+      width: 100%;
+      *width: 100%;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .week-row .col-md-1,
+    .week-row .col-sm-1,
+    .week-row .col-lg-1 {
+      width: 14.285714285714285714285714285714%;
+      *width: 14.285714285714285714285714285714%;
+    }
+  }
 
-
-.custom-col-wrapper .custom-col {
-    width: 14.28%;
-    position: relative;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin: 0 !important;
-}
+  @media (min-width: 1200px) {
+    .week-row .col-md-1,
+    .week-row .col-sm-1,
+    .week-row .col-lg-1 {
+      width: 14.285714285714285714285714285714%;
+      *width: 14.285714285714285714285714285714%;
+    }
+  }
