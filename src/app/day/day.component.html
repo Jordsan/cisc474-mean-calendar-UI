@@ -1,0 +1,7 @@
+<span *ngFor="let event of events">
+    <h4> {{ event.title}} </h4>
+    <span>Date: {{ event.date }} - Day # : {{ dayNum }} </span>
+    <p>Starts: {{ event.startTime }}, Ends: {{ event.endTime }}</p>
+    <p> Description: {{ event.description }}</p>
+    <p>eventId: {{ event.eventId }} - userId: {{ event.userId }}</p>
+</span>
