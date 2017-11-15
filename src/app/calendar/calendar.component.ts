@@ -24,6 +24,7 @@ export class CalendarComponent implements OnInit {
       else{
         this.whatmonth = this.whatmonth - 1;
       }
+      console.log(this.whatmonth);
     }
 
     nextmonth(){
@@ -33,6 +34,7 @@ export class CalendarComponent implements OnInit {
       else{
         this.whatmonth = this.whatmonth + 1;
       }
+      console.log(this.whatmonth);
     }
 
     ngOnInit(): void {
