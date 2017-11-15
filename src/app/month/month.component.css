@@ -6,7 +6,7 @@
       *width: 100%;
     }
   }
-  
+
   @media (min-width: 992px) {
     .week-row .col-md-1,
     .week-row .col-sm-1,
