@@ -8,9 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CalendarComponent implements OnInit {
 
     whatMonth: number = 1;
+    whatYear: number = 2017
 
 
     constructor() {
+    }
+
+    getCurrentYear(){
+      return this.whatYear
     }
 
     getCurrentMonth(){
@@ -19,6 +24,7 @@ export class CalendarComponent implements OnInit {
 
     getPreviousMonth(){
       if(this.whatMonth == 1){
+        this.whatYear = this.whatYear - 1;
         this.whatMonth = 12;
       }
       else{
@@ -29,6 +35,7 @@ export class CalendarComponent implements OnInit {
 
     getNextMonth(){
       if(this.whatMonth == 12){
+        this.whatYear = this.whatYear + 1;
         this.whatMonth = 1;
       }
       else{

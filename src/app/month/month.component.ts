@@ -8,10 +8,21 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MonthComponent implements OnInit {
 
     monthTitle: string;
+    getMonthDay: string;
+    monthStartDay: number;
 
-    @Input()
-    monthNum: number;
+    @Input() monthNum: number;
+    @Input() yearNum: number;
 
+    getYearTitle(){
+      return this.yearNum;
+    }
+
+    getMonthStartDay(){
+      if monthNum == 1{
+        
+      }
+    }
     getMonthTitle(){
       if(this.monthNum == 1){
         this.monthTitle = "January"
@@ -53,18 +64,28 @@ export class MonthComponent implements OnInit {
 
     }
 
-    getWeeks(){
-
-    }
-    getDaysOfWeek(){
-
-    }
-
-    getDays(){
+    getDayWeek1(whatWeek: number){
       if(this.monthNum == 1){
-        this.getMonthDay = "January"
+        //new array(1,2,3,4,......31)
+        //week.start monday
+        if(whatWeek == 1){
+          return new Array(1,2,3,4,5,6,7);
+        }
+        else if(whatWeek == 2){
+          return new Array(8,9,10,11,12,13,14);
+        }
+        else if(whatWeek == 3){
+          return new Array(15,16,17,18,19,20,21);
+        }
+        else if(whatWeek == 4){
+          return new Array(22,23,24,25,26,27,28);
+        }
+        else
+          return new Array(29,30,31);
       }
       else if(this.monthNum==2){
+        //get new array(1,2,3,4,5.....28)
+        //monthStart=wednesday
         this.getMonthDay = "February"
       }
       else if(this.monthNum==3){
@@ -97,7 +118,6 @@ export class MonthComponent implements OnInit {
       else if(this.monthNum==12){
         this.getMonthDay = "December"
       }
-      return this.getMonthDay;
     }
 
     constructor() {
