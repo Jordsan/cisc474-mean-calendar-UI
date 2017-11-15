@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Event } from '../Event/event';
+import { Event } from '../event/event';
 
 @Component({
     selector: 'app-day-component',

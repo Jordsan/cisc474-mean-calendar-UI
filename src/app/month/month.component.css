@@ -1,26 +1,37 @@
-@media (min-width: 768px){
-    .week-row .col-md-1,
-    .week-row .col-sm-1,
-    .week-row .col-lg-1  {
-      width: 100%;
-      *width: 100%;
-    }
-  }
-
-  @media (min-width: 992px) {
+@media (min-width: 768px) {
     .week-row .col-md-1,
     .week-row .col-sm-1,
     .week-row .col-lg-1 {
-      width: 14.285714285714285714285714285714%;
-      *width: 14.285714285714285714285714285714%;
+        width: 100%;
+        *width: 100%;
     }
-  }
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 992px) {
     .week-row .col-md-1,
     .week-row .col-sm-1,
     .week-row .col-lg-1 {
-      width: 14.285714285714285714285714285714%;
-      *width: 14.285714285714285714285714285714%;
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
     }
-  }
+}
+
+@media (min-width: 1200px) {
+    .week-row .col-md-1,
+    .week-row .col-sm-1,
+    .week-row .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+
+    .month {
+        border: 1px solid black;
+    }
+
+    .monthTitle{
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-size: 4em;
+    }
+}

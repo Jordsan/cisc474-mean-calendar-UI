@@ -1,8 +1,6 @@
 <div>
-    <button (click)="getPreviousMonth()">previous</button>
-</div>
-<div>
-    <button (click)="getNextMonth()">next</button>
+    <button class='previous' (click)="getPreviousMonth()">previous</button>
+    <button class='next' (click)="getNextMonth()">next</button>
 </div>
 <div>
     <app-month-component [monthNum] = getCurrentMonth()></app-month-component>

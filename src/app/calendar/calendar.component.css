@@ -1,0 +1,14 @@
+.next{
+    margin-top: 27px;
+    float: right;
+    position: relative;
+    margin-right: 0;
+}
+
+.previous{
+    margin-top: 27px;
+    margin-left: 0;
+    float: left;
+    position: relative;
+}
+
