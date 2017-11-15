@@ -7,41 +7,48 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-    whatMonth: number = 1;
-    whatYear: number = 2017
+    currentMonth: number = 1;
+    currentYear: number = 2017
+    daysInMonth: number = 1;
 
 
     constructor() {
     }
 
     getCurrentYear(){
-      return this.whatYear
+      return this.currentYear
     }
 
     getCurrentMonth(){
-      return this.whatMonth;
+      return this.currentMonth;
     }
 
     getPreviousMonth(){
-      if(this.whatMonth == 1){
-        this.whatYear = this.whatYear - 1;
-        this.whatMonth = 12;
+      if(this.currentMonth == 1){
+        this.currentYear = this.currentYear - 1;
+        this.currentMonth = 12;
       }
       else{
-        this.whatMonth = this.whatMonth - 1;
+        this.currentMonth = this.currentMonth - 1;
       }
-      console.log(this.whatMonth);
+      this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
+      var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
+      console.log(this.currentYear+"    "+this.currentMonth+"   "+this.daysInMonth+"    "+numberOfDaysPercedingFirstDay);
     }
 
     getNextMonth(){
-      if(this.whatMonth == 12){
-        this.whatYear = this.whatYear + 1;
-        this.whatMonth = 1;
+      if(this.currentMonth == 12){
+        this.currentYear = this.currentYear + 1;
+        this.currentMonth = 1;
       }
       else{
-        this.whatMonth = this.whatMonth + 1;
+        this.currentMonth = this.currentMonth + 1;
       }
-      console.log(this.whatMonth);
+      // console.log(this.currentMonth+"   "+this.daysInMonth);
+      // alert(""+this.currentMonth)
+      this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
+      var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
+      console.log("YEAR = "+this.currentYear+"   MONTH = "+this.currentMonth+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
     }
 
     ngOnInit(): void {
@@ -50,4 +57,7 @@ export class CalendarComponent implements OnInit {
     searchDays(input: string): void {
         console.log(input);
     }
+}
+function howManyDaysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
 }
