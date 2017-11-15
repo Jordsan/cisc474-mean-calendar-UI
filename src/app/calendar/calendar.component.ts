@@ -7,34 +7,34 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-    whatmonth: number = 1;
+    whatMonth: number = 1;
 
 
     constructor() {
     }
 
-    getcurrentmonth(){
-      return this.whatmonth;
+    getCurrentMonth(){
+      return this.whatMonth;
     }
 
-    previousmonth(){
-      if(this.whatmonth == 1){
-        this.whatmonth = 12;
+    getPreviousMonth(){
+      if(this.whatMonth == 1){
+        this.whatMonth = 12;
       }
       else{
-        this.whatmonth = this.whatmonth - 1;
+        this.whatMonth = this.whatMonth - 1;
       }
-      console.log(this.whatmonth);
+      console.log(this.whatMonth);
     }
 
-    nextmonth(){
-      if(this.whatmonth == 12){
-        this.whatmonth = 1;
+    getNextMonth(){
+      if(this.whatMonth == 12){
+        this.whatMonth = 1;
       }
       else{
-        this.whatmonth = this.whatmonth + 1;
+        this.whatMonth = this.whatMonth + 1;
       }
-      console.log(this.whatmonth);
+      console.log(this.whatMonth);
     }
 
     ngOnInit(): void {

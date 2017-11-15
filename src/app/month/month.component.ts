@@ -7,50 +7,50 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MonthComponent implements OnInit {
 
-    monthtitle: string;
+    monthTitle: string;
 
     @Input()
     monthNum: number;
 
-    getmonthtitle(){
+    getMonthTitle(){
       if(this.monthNum == 1){
-        this.monthtitle = "January"
+        this.monthTitle = "January"
       }
       else if(this.monthNum==2){
-        this.monthtitle = "February"
+        this.monthTitle = "February"
       }
       else if(this.monthNum==3){
-        this.monthtitle = "March"
+        this.monthTitle = "March"
       }
       else if(this.monthNum==4){
-        this.monthtitle = "April"
+        this.monthTitle = "April"
       }
       else if(this.monthNum==5){
-        this.monthtitle = "May"
+        this.monthTitle = "May"
       }
       else if(this.monthNum==6){
-        this.monthtitle = "June"
+        this.monthTitle = "June"
       }
       else if(this.monthNum==7){
-        this.monthtitle = "July"
+        this.monthTitle = "July"
       }
       else if(this.monthNum==8){
-        this.monthtitle = "August"
+        this.monthTitle = "August"
       }
       else if(this.monthNum==9){
-        this.monthtitle = "September"
+        this.monthTitle = "September"
       }
       else if(this.monthNum==10){
-        this.monthtitle = "October"
+        this.monthTitle = "October"
       }
       else if(this.monthNum==11){
-        this.monthtitle = "November"
+        this.monthTitle = "November"
       }
       else if(this.monthNum==12){
-        this.monthtitle = "December"
+        this.monthTitle = "December"
       }
-      return this.monthtitle;
-      console.log(this.monthtitle);
+      return this.monthTitle;
+
     }
 
     constructor() {
