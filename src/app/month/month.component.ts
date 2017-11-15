@@ -53,6 +53,53 @@ export class MonthComponent implements OnInit {
 
     }
 
+    getWeeks(){
+
+    }
+    getDaysOfWeek(){
+
+    }
+
+    getDays(){
+      if(this.monthNum == 1){
+        this.getMonthDay = "January"
+      }
+      else if(this.monthNum==2){
+        this.getMonthDay = "February"
+      }
+      else if(this.monthNum==3){
+        this.getMonthDay = "March"
+      }
+      else if(this.monthNum==4){
+        this.getMonthDay = "April"
+      }
+      else if(this.monthNum==5){
+        this.getMonthDay = "May"
+      }
+      else if(this.monthNum==6){
+        this.getMonthDay = "June"
+      }
+      else if(this.monthNum==7){
+        this.getMonthDay = "July"
+      }
+      else if(this.monthNum==8){
+        this.getMonthDay = "August"
+      }
+      else if(this.monthNum==9){
+        this.getMonthDay = "September"
+      }
+      else if(this.monthNum==10){
+        this.getMonthDay = "October"
+      }
+      else if(this.monthNum==11){
+        this.getMonthDay = "November"
+      }
+      else if(this.monthNum==12){
+        this.getMonthDay = "December"
+      }
+      return this.getMonthDay;
+    }
+
     constructor() {
     }
 
