@@ -7,10 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-    currentMonth: number = 1;
+    currentMonth: number = 2;
     currentYear: number = 2017
-    daysInMonth: number = 1;
-
 
     constructor() {
     }

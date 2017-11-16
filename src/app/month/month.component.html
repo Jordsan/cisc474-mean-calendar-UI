@@ -1,29 +1,12 @@
-<div class="monthTitle">{{ getMonthTitle()}} {{ getYearTitle()}}</div>
+<div class="monthTitle">{{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}</div>
 <br>
+<div>
+  <!-- {{parceArray()}} -->
+</div>
 <div class="container-fluid custom-col-wrapper">
-    <div class="row week-row">
-        <div class="col-lg-1 month" *ngFor = "let j of getDayWeek1(1)">
-            <app-day-component [dayNum]="j"></app-day-component>
-        </div>
-    </div>
-    <div class="row week-row">
-        <div class="col-lg-1 month" *ngFor="let j of getDayWeek1(2)">
-            <app-day-component [dayNum]="j"></app-day-component>
-        </div>
-    </div>
-    <div class="row week-row">
-        <div class="col-lg-1 month" *ngFor="let j of getDayWeek1(3)">
-            <app-day-component [dayNum]="j"></app-day-component>
-        </div>
-    </div>
-    <div class="row week-row">
-        <div class="col-lg-1 month" *ngFor="let j of getDayWeek1(4)">
-            <app-day-component [dayNum]="j"></app-day-component>
-        </div>
-    </div>
-    <div class="row week-row">
-        <div class="col-lg-1 month" *ngFor="let j of getDayWeek1(5)">
-            <app-day-component [dayNum]="j"></app-day-component>
+    <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="row week-row">
+        <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 month">
+            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]"></app-day-component>
         </div>
     </div>
 </div>

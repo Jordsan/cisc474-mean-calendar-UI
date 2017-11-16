@@ -7,110 +7,103 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MonthComponent implements OnInit {
 
-    monthTitle: string;
-    getMonthDay: string;
-    monthStartDay: number;
+    currentMonthTitle: string;
+    daysInMonth: number = 1;
+    monthDayArray: number[];
 
-    @Input() monthNum: number;
-    @Input() yearNum: number;
-
-    getYearTitle(){
-      return this.yearNum;
-    }
-
-    getMonthStartDay(){
-      if monthNum == 1{
-
-      }
-    }
-    getMonthTitle(){
-      if(this.monthNum == 1){
-        this.monthTitle = "January"
-      }
-      else if(this.monthNum==2){
-        this.monthTitle = "February"
-      }
-      else if(this.monthNum==3){
-        this.monthTitle = "March"
-      }
-      else if(this.monthNum==4){
-        this.monthTitle = "April"
-      }
-      else if(this.monthNum==5){
-        this.monthTitle = "May"
-      }
-      else if(this.monthNum==6){
-        this.monthTitle = "June"
-      }
-      else if(this.monthNum==7){
-        this.monthTitle = "July"
-      }
-      else if(this.monthNum==8){
-        this.monthTitle = "August"
-      }
-      else if(this.monthNum==9){
-        this.monthTitle = "September"
-      }
-      else if(this.monthNum==10){
-        this.monthTitle = "October"
-      }
-      else if(this.monthNum==11){
-        this.monthTitle = "November"
-      }
-      else if(this.monthNum==12){
-        this.monthTitle = "December"
-      }
-      return this.monthTitle;
-
-    }
-
-    getDayWeek1(whatWeek: number){
-      if(this.monthNum == 1){
-      }
-      else if(this.monthNum==2){
-        //get new array(1,2,3,4,5.....28)
-        //monthStart=wednesday
-        this.getMonthDay = "February"
-      }
-      else if(this.monthNum==3){
-        this.getMonthDay = "March"
-      }
-      else if(this.monthNum==4){
-        this.getMonthDay = "April"
-      }
-      else if(this.monthNum==5){
-        this.getMonthDay = "May"
-      }
-      else if(this.monthNum==6){
-        this.getMonthDay = "June"
-      }
-      else if(this.monthNum==7){
-        this.getMonthDay = "July"
-      }
-      else if(this.monthNum==8){
-        this.getMonthDay = "August"
-      }
-      else if(this.monthNum==9){
-        this.getMonthDay = "September"
-      }
-      else if(this.monthNum==10){
-        this.getMonthDay = "October"
-      }
-      else if(this.monthNum==11){
-        this.getMonthDay = "November"
-      }
-      else if(this.monthNum==12){
-        this.getMonthDay = "December"
-      }
-    }
+    @Input() currentMonthNum: number;
+    @Input() currentYearNum: number;
 
     constructor() {
+      this.monthDayArray = new Array();
     }
 
     ngOnInit(): void {
+      this.parceArray();
     }
+
+    getCurrentYearTitle(){
+      return this.currentYearNum;
+    }
+
+
+    getCurrentMonthTitle(){
+      if(this.currentMonthNum == 1){
+        this.currentMonthTitle = "January"
+      }
+      else if(this.currentMonthNum==2){
+        this.currentMonthTitle = "February"
+      }
+      else if(this.currentMonthNum==3){
+        this.currentMonthTitle = "March"
+      }
+      else if(this.currentMonthNum==4){
+        this.currentMonthTitle = "April"
+      }
+      else if(this.currentMonthNum==5){
+        this.currentMonthTitle = "May"
+      }
+      else if(this.currentMonthNum==6){
+        this.currentMonthTitle = "June"
+      }
+      else if(this.currentMonthNum==7){
+        this.currentMonthTitle = "July"
+      }
+      else if(this.currentMonthNum==8){
+        this.currentMonthTitle = "August"
+      }
+      else if(this.currentMonthNum==9){
+        this.currentMonthTitle = "September"
+      }
+      else if(this.currentMonthNum==10){
+        this.currentMonthTitle = "October"
+      }
+      else if(this.currentMonthNum==11){
+        this.currentMonthTitle = "November"
+      }
+      else if(this.currentMonthNum==12){
+        this.currentMonthTitle = "December"
+      }
+      return this.currentMonthTitle;
+
+    }
+
+    parceArray(){
+      this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
+      var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay()
+      //console.log("YEAR = "+this.currentYearNum+"   MONTH = "+this.currentMonthNum+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
+
+      console.log("pre days" + numberOfDaysPercedingFirstDay);
+      if(numberOfDaysPercedingFirstDay===0){
+        numberOfDaysPercedingFirstDay=7;
+      }
+      //for loop
+      for(let i=0; i < 42; i++){
+        if (i < numberOfDaysPercedingFirstDay){
+          this.monthDayArray.push(0);
+        }
+        else if ((i-numberOfDaysPercedingFirstDay)<this.daysInMonth){
+          this.monthDayArray.push(i-numberOfDaysPercedingFirstDay+1);
+        }
+        else{
+          this.monthDayArray.push(0);
+        }
+
+      }
+
+
+      // var N = this.daysInMonth+1;
+      // Array.apply(null, {length: N}).map(Number.call, Number)
+      console.log(this.monthDayArray);
+      // console.log(Array.apply(null, {length: N}).map(Number.call, Number));
+    }
+
+
 
     searchDays(input: string): void {
         console.log(input);
     }
+}
+function howManyDaysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
 }
