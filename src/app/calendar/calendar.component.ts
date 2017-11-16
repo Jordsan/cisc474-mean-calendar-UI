@@ -8,7 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CalendarComponent implements OnInit {
 
     currentMonth: number = 2;
-    currentYear: number = 2017
+    currentYear: number = 2017;
+    daysInMonth: number;
 
     constructor() {
     }
@@ -31,7 +32,7 @@ export class CalendarComponent implements OnInit {
       }
       this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
       var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
-      console.log(this.currentYear+"    "+this.currentMonth+"   "+this.daysInMonth+"    "+numberOfDaysPercedingFirstDay);
+      console.log("YEAR = "+this.currentYear+"   MONTH = "+this.currentMonth+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
     }
 
     getNextMonth(){
@@ -42,8 +43,6 @@ export class CalendarComponent implements OnInit {
       else{
         this.currentMonth = this.currentMonth + 1;
       }
-      // console.log(this.currentMonth+"   "+this.daysInMonth);
-      // alert(""+this.currentMonth)
       this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
       var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
       console.log("YEAR = "+this.currentYear+"   MONTH = "+this.currentMonth+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);

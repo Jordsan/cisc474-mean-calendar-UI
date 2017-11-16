@@ -10,6 +10,7 @@ export class MonthComponent implements OnInit {
     currentMonthTitle: string;
     daysInMonth: number = 1;
     monthDayArray: number[];
+    previousMonthNumber: number;
 
     @Input() currentMonthNum: number;
     @Input() currentYearNum: number;
@@ -18,8 +19,12 @@ export class MonthComponent implements OnInit {
       this.monthDayArray = new Array();
     }
 
-    ngOnInit(): void {
-      this.parceArray();
+    ngOnInit(){
+    }
+
+    ngOnChanges(){
+      this.monthDayArray=[]
+      this.parseArray();
     }
 
     getCurrentYearTitle(){
@@ -28,6 +33,12 @@ export class MonthComponent implements OnInit {
 
 
     getCurrentMonthTitle(){
+      if(this.currentMonthNum==1){
+        this.previousMonthNumber=12;
+      }
+      else{
+        this.previousMonthNumber=this.currentMonthNum-1;
+      }
       if(this.currentMonthNum == 1){
         this.currentMonthTitle = "January"
       }
@@ -65,19 +76,18 @@ export class MonthComponent implements OnInit {
         this.currentMonthTitle = "December"
       }
       return this.currentMonthTitle;
-
     }
 
-    parceArray(){
+    parseArray(){
       this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
       var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay()
-      //console.log("YEAR = "+this.currentYearNum+"   MONTH = "+this.currentMonthNum+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
-
       console.log("pre days" + numberOfDaysPercedingFirstDay);
       if(numberOfDaysPercedingFirstDay===0){
         numberOfDaysPercedingFirstDay=7;
       }
-      //for loop
+      if(this.currentMonthNum>9){
+        numberOfDaysPercedingFirstDay=(numberOfDaysPercedingFirstDay+1);
+      }
       for(let i=0; i < 42; i++){
         if (i < numberOfDaysPercedingFirstDay){
           this.monthDayArray.push(0);
@@ -88,17 +98,9 @@ export class MonthComponent implements OnInit {
         else{
           this.monthDayArray.push(0);
         }
-
       }
-
-
-      // var N = this.daysInMonth+1;
-      // Array.apply(null, {length: N}).map(Number.call, Number)
       console.log(this.monthDayArray);
-      // console.log(Array.apply(null, {length: N}).map(Number.call, Number));
     }
-
-
 
     searchDays(input: string): void {
         console.log(input);
