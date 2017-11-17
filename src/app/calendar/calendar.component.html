@@ -1,3 +1,9 @@
-<div *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
-    <app-month-component [monthNum] = "i"></app-month-component>
+<div class="previousDiv">
+    <button id="clickPrevious" class='previous' (click)="getPreviousMonth()">previous</button>
+</div>
+<div class="nextDiv">
+  <button id="clickNext" class='next' (click)="getNextMonth()">next</button>
+</div>
+<div>
+    <app-month-component [currentMonthNum] = getCurrentMonth() [currentYearNum] = getCurrentYear()></app-month-component>
 </div>

@@ -12,7 +12,6 @@ import { Event } from '../Event/event';
 export class DayComponent implements OnInit {
 
 
-
     @Input()
     dayNum: number;
 
