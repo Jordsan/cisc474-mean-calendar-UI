@@ -31,14 +31,23 @@
         *width: 14.285714285714285714285714285714%;
     }
 
-    .month {
-        border: 1px solid black;
-    }
 
-    .monthTitle{
-        text-align: center;
-        background-color: black;
-        color: white;
-        font-size: 4em;
-    }
+}
+
+.day-box {
+    height: 200px;
+    border: solid 1px black;
+    padding: 0;
+}
+
+.monthTitle{
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 4em;
+}
+
+.day-of-week {
+    text-align: center;
+    font-size: 1.8em;
 }

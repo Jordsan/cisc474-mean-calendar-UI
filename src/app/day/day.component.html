@@ -1,7 +1,8 @@
-<span class='wrapper' *ngFor="let event of events">
-    <h4> {{ event.title}} </h4>
-    <span>Date: {{ event.date }} - Day # : {{ dayNum }} </span>
-    <p>Starts: {{ event.startTime }}, Ends: {{ event.endTime }}</p>
-    <p> Description: {{ event.description }}</p>
-    <p>eventId: {{ event.eventId }} - userId: {{ event.userId }}</p>
-</span>
+<div class="day-box"> 
+    <div *ngIf="dayNum === 0"></div>
+    <div *ngIf="dayNum > 0" class="day-num">{{ dayNum }}</div>
+    <span class='day-wrapper' *ngFor="let event of events">
+        <h4> {{ event.title}} </h4>
+        <p>Starts: {{ event.startTime }}, Ends: {{ event.endTime }}</p>
+    </span>
+</div>

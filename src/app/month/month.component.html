@@ -3,9 +3,14 @@
 <div>
 </div>
 <div class="container-fluid custom-col-wrapper">
+    <div class="row week-row">
+        <span *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]" class="day-of-week col-lg-1">
+            {{ getWeekDay(day) }}
+        </span>
+    </div>
     <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="row week-row">
-        <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 month">
-            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]"></app-day-component>
+        <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 day-box">
+            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum" [yearNum]="currentYearNum"></app-day-component>
         </div>
     </div>
 </div>

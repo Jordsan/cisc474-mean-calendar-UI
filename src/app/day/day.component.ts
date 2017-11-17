@@ -3,66 +3,54 @@ import { Component, OnInit, Input } from '@angular/core';
 import { EventService } from '../services/event-service';
 
 import { Event } from '../Event/event';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'app-day-component',
     templateUrl: 'day.component.html',
-    styleUrls: [ 'day.component.css' ]
+    styleUrls: ['day.component.css']
 })
-export class DayComponent implements OnInit {
+export class DayComponent implements OnInit, OnChanges {
 
 
     @Input()
     dayNum: number;
 
+    @Input()
+    monthNum: number;
+
+    @Input()
+    yearNum: number;
+
+    dayDate: string;
+
+    userId: number = 1;
+
     events: Array<Event>;
     constructor(private eventService: EventService) {
         this.events = new Array<Event>();
 
-        this.eventService.getUserDateEvents(1, '11-13-17').then(list => this.events = list);
-
-        for (let event of this.events){
-            console.log(event.title);
-        }
-        // this.events.push({
-        //     eventId: 1,
-        //     userId: 1,
-        //     date: 'date 1',
-        //     startTime: 0,
-        //     endTime: 1,
-        //     title: 'Test Title',
-        //     description: 'Sample description'
-        // });
-        // this.events.push({
-        //     eventId: 2,
-        //     userId: 1,
-        //     date: 'date 2',
-        //     startTime: 0,
-        //     endTime: 1,
-        //     title: 'Test Title',
-        //     description: 'Sample description'
-        // });
-        // this.events.push({
-        //     eventId: 3,
-        //     userId: 2,
-        //     date: 'date 3',
-        //     startTime: 0,
-        //     endTime: 1,
-        //     title: 'Test Title',
-        //     description: 'Sample description'
-        // });
-        // this.events.push({
-        //     eventId: 4,
-        //     userId: 2,
-        //     date: 'date 4',
-        //     startTime: 0,
-        //     endTime: 1,
-        //     title: 'Test Title',
-        //     description: 'Sample description'
-        // });
     }
 
     ngOnInit(): void {
+        this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
+
+        console.log("daydate -> " + this.dayDate);
+
+        this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
+
+        // for (let event of this.events) {
+        //     console.log(event.title);
+        // }
+
+    }
+
+    ngOnChanges(): void {
+        this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
+
+        console.log("daydate -> " + this.dayDate);
+
+        this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
     }
 
     searchDays(input: string): void {
