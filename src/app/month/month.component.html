@@ -1,9 +1,8 @@
 <span>---- Month Num: {{ monthNum }} </span>
-<div class="container-fluid custom-col-wrapper">
+<div class="container custom-col-wrapper">
     <div class="row week-row" *ngFor="let i of [1, 2, 3, 4, 5]">
         <div class="col-lg-1" *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]">
             <app-day-component [dayNum]="j"></app-day-component>
         </div>
     </div>
 </div>
-<hr>

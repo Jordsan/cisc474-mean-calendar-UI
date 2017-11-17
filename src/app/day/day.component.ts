@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { EventService } from '../services/event-service';
+
 import { Event } from '../Event/event';
 
 @Component({
@@ -9,21 +11,29 @@ import { Event } from '../Event/event';
 })
 export class DayComponent implements OnInit {
 
+
+
     @Input()
     dayNum: number;
 
     events: Array<Event>;
-    constructor() {
+    constructor(private eventService: EventService) {
         this.events = new Array<Event>();
-        this.events.push({
-            eventId: 1,
-            userId: 1,
-            date: 'date 1',
-            startTime: 0,
-            endTime: 1,
-            title: 'Test Title',
-            description: 'Sample description'
-        });
+
+        this.eventService.getUserDateEvents(1, '11-13-17').then(list => this.events = list);
+
+        for (let event of this.events){
+            console.log(event.title);
+        }
+        // this.events.push({
+        //     eventId: 1,
+        //     userId: 1,
+        //     date: 'date 1',
+        //     startTime: 0,
+        //     endTime: 1,
+        //     title: 'Test Title',
+        //     description: 'Sample description'
+        // });
         // this.events.push({
         //     eventId: 2,
         //     userId: 1,

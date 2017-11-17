@@ -1,3 +1,10 @@
+.custom-col-wrapper {
+    width: 100%;
+    min-width: 1500px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
 @media (min-width: 768px){
     .week-row .col-md-1,
     .week-row .col-sm-1,
