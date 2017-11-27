@@ -54,7 +54,6 @@ export class CalendarComponent implements OnInit {
       }
       this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
       var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
-      console.log("YEAR = "+this.currentYear+"   MONTH = "+this.currentMonth+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
     }
 
     getNextMonth(){
@@ -67,7 +66,6 @@ export class CalendarComponent implements OnInit {
       }
       this.daysInMonth = howManyDaysInMonth(this.currentMonth,this.currentYear);
       var numberOfDaysPercedingFirstDay = new Date(this.currentYear + "-" + this.currentMonth).getDay()
-      console.log("YEAR = "+this.currentYear+"   MONTH = "+this.currentMonth+"  DAYS = "+this.daysInMonth+"   Padding = "+numberOfDaysPercedingFirstDay);
     }
 
     ngOnInit(): void {

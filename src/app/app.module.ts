@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
+
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,19 +15,19 @@ import { EventService } from './services/event-service';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CalendarComponent,
-    MonthComponent,
-    DayComponent
-  ],
-  imports: [
-    AlertModule.forRoot(),
-    BrowserModule,
-    AppRoutingModule,
-    HttpModule
-  ],
-  providers: [EventService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        CalendarComponent,
+        MonthComponent,
+        DayComponent
+    ],
+    imports: [
+        PopoverModule.forRoot(),
+        BrowserModule,
+        AppRoutingModule,
+        HttpModule
+    ],
+    providers: [EventService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

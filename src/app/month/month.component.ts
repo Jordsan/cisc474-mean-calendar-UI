@@ -30,7 +30,6 @@ export class MonthComponent implements OnInit {
         // returns the year (four digits)
         const year: number = currentTime.getFullYear();
         // write output MM/dd/yyyy
-        console.log(month + '/' + day + '/' + year);
     }
 
     ngOnChanges() {
