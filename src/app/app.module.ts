@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AlertModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { EventService } from './services/event-service';
     RegisterComponent
   ],
   imports: [
-    AlertModule.forRoot(),
+    PopoverModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpModule,

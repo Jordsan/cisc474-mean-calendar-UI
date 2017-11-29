@@ -1,8 +1,23 @@
-.day-wrapper {
-
+.event-wrapper .row{
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 0;
 }
 
 .day-num {
     padding-left: 6px;
     font-size: 1.4em;
+}
+
+.button-col {
+    display: flex;
+    justify-content: center;
+}
+
+.event-button {
+    white-space:normal !important;
+    max-width:200px;
+}
+
+.event-button-title {
 }

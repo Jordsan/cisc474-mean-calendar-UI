@@ -15,8 +15,6 @@ export class EventService {
         'Content-Type': 'application/json',
     });
 
-    mockUserId: number = 1;
-
     constructor(private http: Http) { }
 
     // lat=41.1408&lon=-73.2613&radius=1000
