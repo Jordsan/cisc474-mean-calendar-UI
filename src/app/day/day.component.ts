@@ -37,8 +37,8 @@ export class DayComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
 
-        this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
-        this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
+        // this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
+        // this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
 
     }
 
