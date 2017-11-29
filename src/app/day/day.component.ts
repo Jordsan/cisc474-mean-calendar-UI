@@ -21,7 +21,7 @@ export class DayComponent implements OnInit, OnChanges {
 
     @Input()
     yearNum: number;
-
+ß
     @Input()
     weekday: number;
 
@@ -32,13 +32,6 @@ export class DayComponent implements OnInit, OnChanges {
     events: Array<Event>;
     constructor(private eventService: EventService) {
         this.events = new Array<Event>();
-
-    }
-
-    ngOnInit(): void {
-
-        // this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
-        // this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
 
     }
 
