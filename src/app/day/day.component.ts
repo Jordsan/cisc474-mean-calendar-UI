@@ -9,8 +9,8 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
     selector: 'app-day-component',
     templateUrl: 'day.component.html',
     styleUrls: ['day.component.css']
-})  
-export class DayComponent implements OnInit, OnChanges {
+})
+export class DayComponent implements OnChanges {
 
 
     @Input()
