@@ -21,7 +21,7 @@ export class DayComponent implements OnChanges {
 
     @Input()
     yearNum: number;
-ß
+
     @Input()
     weekday: number;
 
