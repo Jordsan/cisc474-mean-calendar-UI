@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { EventService } from '../services/event-service';
 
-import { Event } from '../Event/event';
+import { Event } from '../event/event';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({

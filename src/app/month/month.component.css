@@ -3,6 +3,7 @@
     min-width: 1500px;
     max-width: 1500px;
     margin: 0 auto;
+    background-color: whitesmoke;
 }
 
 @media (min-width: 768px){
@@ -44,12 +45,48 @@
 
 .monthTitle{
     text-align: center;
-    background-color: black;
+    background-color: lightslategray;
     color: white;
     font-size: 4em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .day-of-week {
     text-align: center;
     font-size: 1.8em;
+    color: white;
+    background-color: lightslategray;
+    border-top: 2px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.logout{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.username{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.logStuff{
+    text-align: right;
+}
+
+.search{
+    display: inline-block;
+    margin-top: 5px;
+    position: absolute;
+    font-size: 1.5em;
+}
+
+.search:focus{
+    display: inline-block;
+    margin-top: 5px;
+    position: absolute;
+    border: 1px solid dodgerblue;
+    font-size: 1.5em;
 }
