@@ -28,6 +28,21 @@
               <input type="confirmPassword" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
             </div>
           </div>
+
+          <div class="form-group">
+              <label for="loginPass" class="col-sm-3 control-label">
+              First Name</label>
+              <div class="col-sm-9">
+                <input type="newFirstName" class="form-control" name="newFirstName" id="newFirstName" placeholder="First Name" required>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="loginPass" class="col-sm-3 control-label">
+              Last Name</label>
+              <div class="col-sm-9">
+                <input type="newLastName" class="form-control" name="newLastName" id="newLastName" placeholder="LastName" required>
+              </div>
+          </div>
           <div class="form-group last">
             <div class="col-sm-offset-3 col-sm-9">
               <button type="back" class="btn btn-success btn-sm" [routerLink]="['/login']" routerLinkActive="active">

@@ -1,6 +1,37 @@
 .title_app{
   text-align: center;
   margin: auto;
-  width: 100%;
+  width: 75%;
   padding-top: 2%;
+}
+
+#banner{
+  position: relative;
+}
+
+.logout{
+  float: right;
+  position: absolute;
+  bottom:0;
+  right:15px;
+}
+
+.username{
+  display: inline;
+  bottom:0;
+  right:105px;
+  position: absolute;
+  border: 1px black;
+  text-align: center;
+  font-weight: 900;
+  width: 15%;
+  font-size: 20px;
+}
+
+.search{
+  bottom:0;
+  left:15px;
+  float: left;
+  position: absolute;
+  border-style: ridge;
 }
