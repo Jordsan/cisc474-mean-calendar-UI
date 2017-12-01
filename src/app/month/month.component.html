@@ -1,16 +1,23 @@
-<div class="monthTitle">{{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}</div>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes"/>
 <br>
 <div>
 </div>
 <div class="container-fluid custom-col-wrapper">
     <div class="row week-row">
+        <input type="text" placeholder="Search..." class="search">
+        <div class="logStuff">
+            <p class="username">USERNAME</p>
+            <button class="logout">LOGOUT</button>
+        </div>
+        <div class="monthTitle">{{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}</div>
         <span *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]" class="day-of-week col-lg-1">
             {{ getWeekDay(day) }}
         </span>
     </div>
     <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="row week-row">
         <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 day-box">
-            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum" [yearNum]="currentYearNum" [weekday]="j"></app-day-component>
+            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum"
+                               [yearNum]="currentYearNum" [weekday]="j"></app-day-component>
         </div>
     </div>
 </div>

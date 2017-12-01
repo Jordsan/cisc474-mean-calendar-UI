@@ -5,7 +5,12 @@ import 'rxjs/add/operator/switchMap';
 
 import { EventService } from '../services/event-service';
 
+<<<<<<< HEAD
 import { Event } from '../Event/event';
+=======
+import { Event } from '../event/event';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+>>>>>>> b9c0e92da151c81958b68e31497d6028f838c0c2
 
 @Component({
     selector: 'app-day-component',

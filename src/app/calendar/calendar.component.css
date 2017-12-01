@@ -1,19 +1,40 @@
 .next{
-    margin-top: 27px;
-    float: right;
-    position: relative;
-    margin-right: 0;
+    top: 50%;
+    position: absolute;
+    right: 0;
     padding-left: 5px;
     padding-right: 5px;
+    font-size: 5em;
+    opacity: .5;
+}
+
+.next:hover{
+    top: 50%;
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 5em;
+    opacity: 1;
 }
 
 .previous{
-    margin-top: 27px;
-    margin-left: 0;
-    float: left;
-    position: relative;
+    top: 50%;
+    left: 0;
+    position: absolute;
     padding-left: 5px;
     padding-right: 5px;
+    font-size: 5em;
+    opacity: .5;
+}
+.previous:hover{
+    top: 50%;
+    left: 0;
+    position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 5em;
+    opacity: 1;
 }
 
 .previousDiv{
