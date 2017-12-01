@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+
+import 'rxjs/add/operator/switchMap';
 
 import { EventService } from '../services/event-service';
 
 import { Event } from '../Event/event';
-import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'app-day-component',
     templateUrl: 'day.component.html',
     styleUrls: ['day.component.css']
 })
-export class DayComponent implements OnChanges {
+export class DayComponent implements OnChanges, OnInit {
 
 
     @Input()
@@ -27,11 +29,19 @@ export class DayComponent implements OnChanges {
 
     dayDate: string;
 
-    userId: number = 1;
+    // from login service
+    userId: number;
 
     events: Array<Event>;
-    constructor(private eventService: EventService) {
+
+    constructor(private eventService: EventService, private route: ActivatedRoute) {
         this.events = new Array<Event>();
+
+        this.route.paramMap.switchMap((params: ParamMap) =>
+            params.get('id')).subscribe(id => this.userId = parseInt(id, 10));
+    }
+
+    ngOnInit(): void {
 
     }
 

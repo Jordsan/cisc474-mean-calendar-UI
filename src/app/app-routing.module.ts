@@ -20,7 +20,7 @@ const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'calendar',
+        path: 'calendar/:id',
         component: CalendarComponent
     }
 

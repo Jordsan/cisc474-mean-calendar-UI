@@ -10,22 +10,12 @@ import { Event } from '../event/event';
 @Injectable()
 export class EventService {
 
-    private apiURL = 'http://localhost:3000/';
+    private apiURL = 'http://localhost:3000/api/';
     private headers = new Headers({
         'Content-Type': 'application/json',
     });
 
     constructor(private http: Http) { }
-
-    // lat=41.1408&lon=-73.2613&radius=1000
-
-    /*
-
-    apiRoutes.get('/:userId/events', eventController.getAllUserEvents);
-    apiRoutes.get('/:userId/events/date/:date', eventController.getUserDateEvents);
-    apiRoutes.get('/:userId/events/month/:month', eventController.getUserMonthEvents);
-
-    */
 
     getAllEvents(): Promise<Event[]> {
         const finalURL = this.apiURL + 'events';
