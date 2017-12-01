@@ -1,6 +1,13 @@
-.title_app{
-  text-align: center;
-  margin: auto;
-  width: 100%;
-  padding-top: 2%;
+.title_app {
+    display: inline-block;
+    margin: auto;
+    padding-top: 2%;
+    font-size: 2em;
+    float: right;
 }
+
+
+#bod{
+    background: linear-gradient(white, lightslategray, white);
+}
+
