@@ -17,6 +17,14 @@ export class EventService {
 
     constructor(private http: Http) { }
 
+    createEvent(userId: number, date: string, startTime: number, endTime: number, title: string, description: string): Promise<Event[]> {
+        const finalURL = "" // finish, have to create a event in the backend to process this request
+        return this.http.get(finalURL, {headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
     getAllEvents(): Promise<Event[]> {
         const finalURL = this.apiURL + 'events';
         return this.http.get(finalURL, {headers: this.headers})

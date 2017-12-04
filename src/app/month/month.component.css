@@ -65,6 +65,10 @@
     font-size: 1.5em;
 }
 
+.add{
+    display:inline-block;
+}
+
 .username{
     display: inline-block;
     font-size: 1.5em;
@@ -72,19 +76,33 @@
 
 .logStuff{
     text-align: right;
+    display: inline-block;
+    overflow: hidden;
+    float: right;
+}
+
+.container{
+    text-align:center;
 }
 
 .search{
     display: inline-block;
     margin-top: 5px;
-    position: absolute;
     font-size: 1.5em;
 }
 
 .search:focus{
     display: inline-block;
     margin-top: 5px;
-    position: absolute;
     border: 1px solid dodgerblue;
     font-size: 1.5em;
+}
+
+.timeFrame{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.title{
+    padding-bottom: 15px;
 }

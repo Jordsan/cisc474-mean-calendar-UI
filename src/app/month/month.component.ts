@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {EventService} from '../services/event-service';
 
 @Component({
     selector: 'app-month-component',
@@ -10,6 +11,11 @@ export class MonthComponent implements OnInit {
     currentMonthTitle: string;
     daysInMonth: number = 1;
     monthDayArray: number[];
+    private eventDate: string;
+    private startTime: number;
+    private endTime: number;
+    private title: string;
+    private description: string;
 
     @Input() currentMonthNum: number;
     @Input() currentYearNum: number;
@@ -132,6 +138,10 @@ export class MonthComponent implements OnInit {
 
     searchDays(input: string): void {
         console.log(input);
+    }
+
+    createEventClick(): void {
+        
     }
 }
 function howManyDaysInMonth(month, year) {
