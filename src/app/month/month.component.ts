@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { UserService } from '../services/user-service';
+import { EventService } from '../services/event-service';
 import { Router } from '@angular/router';
 
 
@@ -23,6 +24,11 @@ export class MonthComponent implements OnInit, OnChanges {
     currentMonthTitle: string;
     daysInMonth: number = 1;
     monthDayArray: number[];
+    private eventDate: string;
+    private startTime: number;
+    private endTime: number;
+    private title: string;
+    private description: string;
 
     @Input() currentMonthNum: number;
     @Input() currentYearNum: number;
@@ -33,7 +39,7 @@ export class MonthComponent implements OnInit, OnChanges {
     users: {fullName: string, id: number}[];
     private searchTerms = new Subject<string>();
 
-    constructor(private userService: UserService, private router: Router) {
+    constructor(private userService: UserService, private eventService: EventService, private router: Router) {
         this.monthDayArray = new Array();
         this.users = new Array();
     }
@@ -170,6 +176,10 @@ export class MonthComponent implements OnInit, OnChanges {
 
     searchDays(input: string): void {
         console.log(input);
+    }
+
+    createEventClick(): void {
+        
     }
 }
 function howManyDaysInMonth(month, year) {

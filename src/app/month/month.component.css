@@ -49,13 +49,24 @@
     color: black;
 }
 
-.username {
+.add{
+    display:inline-block;
+}
+
+.username{
     display: inline-block;
     font-size: 1.5em;
 }
 
 .logStuff {
     text-align: right;
+    display: inline-block;
+    overflow: hidden;
+    float: right;
+}
+
+.container{
+    text-align:center;
 }
 
 .menu-row {
@@ -65,14 +76,12 @@
 .search {
     display: inline-block;
     margin-top: 5px;
-    position: absolute;
     font-size: 1.5em;
 }
 
 .search:focus {
     display: inline-block;
     margin-top: 5px;
-    position: absolute;
     border: 1px solid dodgerblue;
     font-size: 1.5em;
 }
@@ -100,4 +109,12 @@
     color: #eee;
     background-color: #607D8B;
     z-index: 10;
+}
+.timeFrame{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.title{
+    padding-bottom: 15px;
 }
