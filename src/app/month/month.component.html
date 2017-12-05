@@ -1,7 +1,7 @@
 <div class="container-fluid custom-col-wrapper">
     <div class="row menu-row">
         <div style="overflow:hidden;">
-            <div class="containter" style="float: left;">
+            <div style="float: left;">
                 <input [(ngModel)]="searchValue" type="text" placeholder="Search..." class="search" (keyup)="search(searchValue)">
                 <div class="search-dropdown">
                     <div *ngFor="let user of users" (click)="viewCalendar(user.id)" class="search-result">
