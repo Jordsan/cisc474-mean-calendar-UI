@@ -6,6 +6,7 @@ import { User } from '../user/user';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { of } from 'rxjs/observable/of';
 
 import { Router } from '@angular/router';
 
@@ -17,7 +18,8 @@ export class UserService {
         'Content-Type': 'application/json',
     });
 
-    activeUser: User;
+    activeUserView: number;
+    loggedInUser: User;
 
     constructor(private http: Http, private router: Router) { }
 
@@ -29,7 +31,8 @@ export class UserService {
             { userId: userId, username: username, password: password, firstName: firstName, lastName: lastName },
             { headers: this.headers })
             .map(user => {
-                this.activeUser = user.json();
+                this.loggedInUser = user.json().user;
+                this.activeUserView = user.json().user.userId;
                 this.router.navigate(['calendar/' + userId]);
             });
     }
@@ -40,8 +43,9 @@ export class UserService {
             { username: username, password: password },
             { headers: this.headers })
             .map(user => {
-                this.activeUser = user.json().user;
-                this.router.navigate(['calendar/' + this.activeUser.userId]);
+                this.loggedInUser = user.json().user;
+                this.activeUserView = user.json().user.userId;
+                this.router.navigate(['calendar/' + this.loggedInUser.userId]);
             });
     }
 
@@ -52,6 +56,20 @@ export class UserService {
             .toPromise()
             .then(res => res.json());
 
+    }
+
+    getUsersByName(term: string): Observable<string[]> {
+        const finalURL = this.apiURL + 'users/search/' + term;
+
+        return this.http
+            .get(finalURL)
+            .map(data => {
+                return data.json();
+            });
+    }
+
+    setActiveUserView(input: number): void {
+        this.activeUserView = input;
     }
 
     private handleError(error: any): Promise<any> {

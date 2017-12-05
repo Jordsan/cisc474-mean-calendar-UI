@@ -1,11 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { UserService } from '../services/user-service';
+import { Router } from '@angular/router';
+
+
+// Observable class extensions
+import 'rxjs/add/observable/of';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
     selector: 'app-month-component',
     templateUrl: 'month.component.html',
     styleUrls: ['month.component.css']
 })
-export class MonthComponent implements OnInit {
+export class MonthComponent implements OnInit, OnChanges {
 
     currentMonthTitle: string;
     daysInMonth: number = 1;
@@ -16,8 +29,13 @@ export class MonthComponent implements OnInit {
 
     dayString: string;
 
-    constructor() {
+    searchValue = '';
+    users: {fullName: string, id: number}[];
+    private searchTerms = new Subject<string>();
+
+    constructor(private userService: UserService, private router: Router) {
         this.monthDayArray = new Array();
+        this.users = new Array();
     }
 
     ngOnInit() {
@@ -37,8 +55,28 @@ export class MonthComponent implements OnInit {
         this.parseArray();
     }
 
+    search(input: string): void {
+        this.users = new Array();
+        if (input) {
+            this.userService.getUsersByName(input).subscribe(data => {
+                for (let i = 0; i < data.length; i++) {
+                    if (!this.users.includes(data[i]['fullName'])) {
+                        this.users.push({fullName: data[i]['fullName'], id: data[i]['userId']});
+                    }
+                }
+            });
+        }
+    }
+
+    viewCalendar(input: number): void {
+        this.users = new Array();
+        this.userService.setActiveUserView(input);
+        this.router.navigate(['calendar/' + input]);
+        this.searchValue = '';
+    }
+
     getWeekDay(num: number): string {
-        switch(num){
+        switch (num) {
             case 0: {
                 return 'Sunday';
             }

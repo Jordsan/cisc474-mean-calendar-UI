@@ -8,5 +8,6 @@
 
 #bod{
     background: linear-gradient(white, lightslategray, white);
+    min-width:1500px;
 }
 

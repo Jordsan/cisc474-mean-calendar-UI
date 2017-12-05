@@ -29,7 +29,7 @@ export class DayComponent implements OnChanges, OnInit {
 
     dayDate: string;
 
-    // from login service
+    @Input()
     userId: number;
 
     events: Array<Event>;
@@ -37,8 +37,8 @@ export class DayComponent implements OnChanges, OnInit {
     constructor(private eventService: EventService, private route: ActivatedRoute) {
         this.events = new Array<Event>();
 
-        this.route.paramMap.switchMap((params: ParamMap) =>
-            params.get('id')).subscribe(id => this.userId = parseInt(id, 10));
+        // this.route.paramMap.switchMap((params: ParamMap) =>
+        //     params.get('id')).subscribe(id => this.userId = parseInt(id, 10));
     }
 
     ngOnInit(): void {

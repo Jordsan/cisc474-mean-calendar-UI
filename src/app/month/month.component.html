@@ -1,23 +1,30 @@
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes"/>
-<br>
-<div>
-</div>
 <div class="container-fluid custom-col-wrapper">
-    <div class="row week-row">
-        <input type="text" placeholder="Search..." class="search">
+    <div class="row menu-row">
+        <input [(ngModel)]="searchValue" type="text" placeholder="Search..." class="search" (keyup)="search(searchValue)">
+        <div class="search-dropdown">
+            <div *ngFor="let user of users" (click)="viewCalendar(user.id)" class="search-result">
+                {{ user.fullName }}
+            </div>
+            <!-- <div *ngFor="let user of users" class="search-result">
+                <a [routerLink]="['/calendar', user.id]">
+                    {{ user.fullName }}
+                </a>
+            </div> -->
+        </div>
         <div class="logStuff">
             <p class="username">USERNAME</p>
-            <button class="logout">LOGOUT</button>
+            <button class="logout">Log Out</button>
         </div>
+    </div>
+    <div class="row week-row">
         <div class="monthTitle">{{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}</div>
-        <span *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]" class="day-of-week col-lg-1">
+        <span *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]" class="day-of-week col-xs-1 col-lg-1 col-sm-1 col-md-1">
             {{ getWeekDay(day) }}
         </span>
     </div>
     <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="row week-row">
-        <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 day-box">
-            <app-day-component [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum"
-                               [yearNum]="currentYearNum" [weekday]="j"></app-day-component>
+        <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 col-xs-1 col-sm-1 col-md-1 day-box">
+            <app-day-component [userId]="this.userService.activeUserView" [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum" [yearNum]="currentYearNum" [weekday]="j"></app-day-component>
         </div>
     </div>
 </div>

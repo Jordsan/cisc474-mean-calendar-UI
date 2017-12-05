@@ -3,34 +3,16 @@
     min-width: 1500px;
     max-width: 1500px;
     margin: 0 auto;
+    margin-top: 40px;
     background-color: whitesmoke;
 }
 
-@media (min-width: 768px){
-    .week-row .col-md-1,
-    .week-row .col-sm-1,
-    .week-row .col-lg-1 {
-        width: 100%;
-        *width: 100%;
-    }
-}
-
-@media (min-width: 992px) {
-    .week-row .col-md-1,
-    .week-row .col-sm-1,
-    .week-row .col-lg-1 {
-        width: 14.285714285714285714285714285714%;
-        *width: 14.285714285714285714285714285714%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .week-row .col-md-1,
-    .week-row .col-sm-1,
-    .week-row .col-lg-1 {
-        width: 14.285714285714285714285714285714%;
-        *width: 14.285714285714285714285714285714%;
-    }
+.week-row .col-xs-1,
+.week-row .col-md-1,
+.week-row .col-sm-1,
+.week-row .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
 }
 
 .day-box {
@@ -41,7 +23,7 @@
     overflow-x: hidden;
 }
 
-.monthTitle{
+.monthTitle {
     text-align: center;
     background-color: lightslategray;
     color: white;
@@ -60,31 +42,62 @@
     border-left: 1px solid black;
 }
 
-.logout{
+.logout {
+    width: 200px;
+    font-size: 1.5em;
+    border: 1px solid lightslategray;
+    color: black;
+}
+
+.username {
     display: inline-block;
     font-size: 1.5em;
 }
 
-.username{
-    display: inline-block;
-    font-size: 1.5em;
-}
-
-.logStuff{
+.logStuff {
     text-align: right;
 }
 
-.search{
+.menu-row {
+    background: white;
+}
+
+.search {
     display: inline-block;
     margin-top: 5px;
     position: absolute;
     font-size: 1.5em;
 }
 
-.search:focus{
+.search:focus {
     display: inline-block;
     margin-top: 5px;
     position: absolute;
     border: 1px solid dodgerblue;
     font-size: 1.5em;
+}
+
+.search-dropdown {
+    position: absolute;
+    margin-top: 40px;
+}
+
+.search-result {
+    position: relative;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    font-size: 1.4em;
+    width: 195px;
+    height: 50px;
+    padding: 5px;
+    background-color: white;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.search-result:hover {
+    color: #eee;
+    background-color: #607D8B;
+    z-index: 10;
 }
