@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { UserService } from '../services/user-service';
 import { EventService } from '../services/event-service';
 import { Router } from '@angular/router';
+import { User } from '../user/user';
 
 
 // Observable class extensions
@@ -24,11 +25,17 @@ export class MonthComponent implements OnInit, OnChanges {
     currentMonthTitle: string;
     daysInMonth: number = 1;
     monthDayArray: number[];
+
     private eventDate: string;
     private startTime: number;
     private endTime: number;
     private title: string;
     private description: string;
+    private userIds: number[];
+
+    recipientSearchValue = '';
+    recipientList: { fullName: string, userId: number }[];
+    searchedRecipients: { fullName: string, userId: number }[];
 
     @Input() currentMonthNum: number;
     @Input() currentYearNum: number;
@@ -36,12 +43,16 @@ export class MonthComponent implements OnInit, OnChanges {
     dayString: string;
 
     searchValue = '';
-    users: {fullName: string, id: number}[];
+    users: { fullName: string, userId: number }[];
     private searchTerms = new Subject<string>();
 
     constructor(private userService: UserService, private eventService: EventService, private router: Router) {
         this.monthDayArray = new Array();
         this.users = new Array();
+        this.userIds = new Array();
+        this.recipientList = new Array();
+        this.searchedRecipients = new Array();
+
     }
 
     ngOnInit() {
@@ -67,7 +78,21 @@ export class MonthComponent implements OnInit, OnChanges {
             this.userService.getUsersByName(input).subscribe(data => {
                 for (let i = 0; i < data.length; i++) {
                     if (!this.users.includes(data[i]['fullName'])) {
-                        this.users.push({fullName: data[i]['fullName'], id: data[i]['userId']});
+                        this.users.push({fullName: data[i]['fullName'], userId: data[i]['userId']});
+                    }
+                }
+            });
+        }
+    }
+
+    searchRecipients(input: string): void {
+        this.searchedRecipients = new Array();
+        if (input) {
+            this.userService.getUsersByName(input).subscribe(data => {
+                for (let i = 0; i < data.length; i++) {
+                    if (!this.searchedRecipients.includes(data[i]['fullName'])
+                        && (this.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)) {
+                        this.searchedRecipients.push({fullName: data[i]['fullName'], userId: data[i]['userId']});
                     }
                 }
             });
@@ -79,6 +104,17 @@ export class MonthComponent implements OnInit, OnChanges {
         this.userService.setActiveUserView(input);
         this.router.navigate(['calendar/' + input]);
         this.searchValue = '';
+    }
+
+    addRecipient(name: string, id: number): void {
+        this.searchedRecipients = new Array();
+        this.recipientList.push({ fullName: name, userId: id});
+        this.recipientSearchValue = '';
+    }
+
+    removeRecipient(id: number) {
+        this.recipientList = this.recipientList.filter(e => e.userId !== id);
+        console.log(this.recipientList);
     }
 
     getWeekDay(num: number): string {
@@ -178,9 +214,7 @@ export class MonthComponent implements OnInit, OnChanges {
         console.log(input);
     }
 
-    createEventClick(): void {
-        
-    }
+
 }
 function howManyDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();

@@ -4,7 +4,7 @@
             <div style="float: left;">
                 <input [(ngModel)]="searchValue" type="text" placeholder="Search..." class="search" (keyup)="search(searchValue)">
                 <div class="search-dropdown">
-                    <div *ngFor="let user of users" (click)="viewCalendar(user.id)" class="search-result">
+                    <div *ngFor="let user of users" (click)="viewCalendar(user.userId)" class="search-result">
                         {{ user.fullName }}
                     </div>
                     <!-- <div *ngFor="let user of users" class="search-result">
@@ -38,25 +38,102 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h2 class="modal-title" id="exampleModalLabel">Add Event</h2>
+                    <button id="close-button" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    Event Date:
-                    <input [(ngModel)]="eventDate" type="date" id="date">
-                    <div class="timeFrame">
-                        Start Time:
-                        <input [(ngModel)]="startTime" type="text" id="startTime" style="margin-right: 10px;"> End Time:
-                        <input [(ngModel)]="endTime" type="text" id="endTime">
+                <div class="modal-body container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Event Date:
+                        </div>
+                        <div class="col-lg-8">
+                            <input [(ngModel)]="eventDate" type="date" id="date">
+                        </div>
                     </div>
-                    <div class="title">
-                        Title:
-                        <input [(ngModel)]="title" type="text" id="title">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Start Time:
+                        </div>
+                        <div class="col-lg-8">
+                            <input [(ngModel)]="startTime" type="time" class="timeInput">
+                        </div>
                     </div>
-                    <div>
-                        <textarea rows="4" [(ngModel)]="description" cols="50" placeholder="Description" id="description"></textarea>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            End Time:
+                        </div>
+                        <div class="col-lg-8">
+                            <input [(ngModel)]="endTime" type="time" class="timeInput">
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-lg-4">
+                            Enter Recipients:
+                        </div>
+                        <div class="col-lg-8">
+                            <input [(ngModel)]="recipientSearchValue" type="text" placeholder="Search..." class="search-recipients" (keyup)="searchRecipients(recipientSearchValue)">
+                            <div class="search-recipients-dropdown">
+                                <div *ngFor="let user of searchedRecipients" (click)="addRecipient(user.fullName, user.userId)" class="search-recipients-result">
+                                    {{ user.fullName }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">
+
+                        </div>
+                        <div class="col-lg-3">
+                            Recipients -
+                        </div>
+                        <div class="col-lg-8">
+                            <span *ngFor="let user of recipientList; index as i">
+                                <span *ngIf="recipientList.length === 1">
+                                    <span>
+                                        {{ user.fullName }}
+                                        <button (click)="removeRecipient(user.userId)" class="recipient-button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </span>
+                                </span>
+                                <span *ngIf="i < recipientList.length - 1">
+                                    <span>
+                                        {{ user.fullName }}
+                                        <button (click)="removeRecipient(user.userId)" class="recipient-button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </span>
+
+                                </span>
+                                <span *ngIf="i === recipientList.length - 1 && recipientList.length > 1">
+                                    <span>
+                                        {{ user.fullName }}
+                                        <button (click)="removeRecipient(user.userId)" class="recipient-button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </span>
+
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Title:
+                        </div>
+                        <div class="col-lg-8">
+                            <input [(ngModel)]="title" type="text" id="title">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Description:
+                        </div>
+                        <div class="col-lg-8">
+                            <textarea rows="4" [(ngModel)]="description" id="description"></textarea>
+                        </div>
                     </div>
 
                 </div>
