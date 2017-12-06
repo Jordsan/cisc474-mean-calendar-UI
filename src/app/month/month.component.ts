@@ -20,7 +20,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
     templateUrl: 'month.component.html',
     styleUrls: ['month.component.css']
 })
-export class MonthComponent implements OnInit, OnChanges {
+export class MonthComponent implements OnInit {
 
     currentMonthTitle: string;
     daysInMonth: number = 1;
@@ -67,13 +67,7 @@ export class MonthComponent implements OnInit, OnChanges {
         const year: number = currentTime.getFullYear();
         this.currentYearNum = year;
         // write output MM/dd/yyyy
-        this.monthDayArray = [];
-        this.parseArray();
-    }
-
-    ngOnChanges() {
-        this.monthDayArray = [];
-        this.parseArray();
+        this.updateArray();
     }
 
     search(input: string): void {
@@ -124,12 +118,6 @@ export class MonthComponent implements OnInit, OnChanges {
     addEventClick(): void {
         this.recipientList = new Array();
         this.searchedRecipients = new Array();
-    }
-
-    createEventClick(): void {
-        // this.eventService.createEvent(
-
-        // );
     }
 
     getWeekDay(num: number): string {
@@ -238,8 +226,7 @@ export class MonthComponent implements OnInit, OnChanges {
         }
         this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
         var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay()
-        this.monthDayArray = [];
-        this.parseArray();
+        this.updateArray();
     }
 
     getNextMonth(){
@@ -251,7 +238,11 @@ export class MonthComponent implements OnInit, OnChanges {
             this.currentMonthNum = this.currentMonthNum + 1;
         }
         this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
-        var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay()
+        var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay();
+        this.updateArray();
+    }
+
+    updateArray(){
         this.monthDayArray = [];
         this.parseArray();
     }

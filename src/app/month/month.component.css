@@ -186,7 +186,7 @@
 .next{
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 1.5em;
+    font-size: 1em;
     opacity: .5;
     color:black;
 }
@@ -194,7 +194,7 @@
 .next:hover{
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 1.5em;
+    font-size: 1em;
     opacity: 1;
     color: black;
 }
@@ -202,14 +202,14 @@
 .previous{
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 1.5em;
+    font-size: 1em;
     opacity: .5;
     color: black;
 }
 .previous:hover{
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 1.5em;
+    font-size: 1em;
     opacity: 1;
     color: black;
 }

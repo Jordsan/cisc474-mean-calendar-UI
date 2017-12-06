@@ -7,11 +7,6 @@
                     <div *ngFor="let user of users" (click)="viewCalendar(user.userId)" class="search-result">
                         {{ user.fullName }}
                     </div>
-                    <!-- <div *ngFor="let user of users" class="search-result">
-                            <a [routerLink]="['/calendar', user.id]">
-                                {{ user.fullName }}
-                            </a>
-                        </div> -->
                 </div>
                 <button class="add" data-toggle="modal" data-target="#modal" (click)="addEventClick()">Add Event</button>
             </div>
@@ -22,9 +17,10 @@
         </div>
     </div>
     <div class="row week-row">
-        <div class="monthTitle"><button id="clickPrevious" class='previous' (click)="getPreviousMonth()">
-            &larr;
-        </button>
+        <div class="monthTitle">
+            <button id="clickPrevious" class='previous' (click)="getPreviousMonth()">
+                &larr;
+            </button>
             {{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}
             <button id="clickNext" class='next' (click)="getNextMonth()">
                 &rarr;
