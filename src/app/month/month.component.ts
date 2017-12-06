@@ -117,6 +117,17 @@ export class MonthComponent implements OnInit, OnChanges {
         console.log(this.recipientList);
     }
 
+    addEventClick(): void {
+        this.recipientList = new Array();
+        this.searchedRecipients = new Array();
+    }
+
+    createEventClick(): void {
+        // this.eventService.createEvent(
+
+        // );
+    }
+
     getWeekDay(num: number): string {
         switch (num) {
             case 0: {

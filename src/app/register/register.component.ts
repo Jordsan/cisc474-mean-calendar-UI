@@ -14,7 +14,7 @@ export class RegisterComponent {
     private firstName: string;
     private lastName: string;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService) { }
 
 
     registerClick(): void {
@@ -26,8 +26,14 @@ export class RegisterComponent {
 
 
         this.userService.getUserCount().then(
-            data => this.userService.register(this.username, this.password, this.firstName, this.lastName, data.length + 1).subscribe(
-        ));
+            data => {
+                if (data.length != null) {
+                    this.userService.register(this.username, this.password, this.firstName, this.lastName, data.length + 1).subscribe();
+                }
+                else {
+                    this.userService.register(this.username, this.password, this.firstName, this.lastName, 1).subscribe();
+                }
+            });
     }
 
 }

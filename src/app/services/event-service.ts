@@ -17,12 +17,23 @@ export class EventService {
 
     constructor(private http: Http) { }
 
-    createEvent(userId: number, date: string, startTime: number, endTime: number, title: string, description: string): Promise<Event[]> {
-        const finalURL = "" // finish, have to create a event in the backend to process this request
-        return this.http.get(finalURL, {headers: this.headers})
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
+    createEvent(eventId: number, userIds: number[], date: string,
+        startTime: number, endTime: number, title: string, description: string): Observable<any> {
+        const finalURL = this.apiURL + 'events';
+        return this.http.post(finalURL,
+            {
+                eventId: eventId,
+                userIds: userIds,
+                date: date,
+                startTime: startTime,
+                endTime: endTime,
+                title: title,
+                description: description
+            },
+            { headers: this.headers })
+            .map(event => {
+                console.log(event);
+            });
     }
 
     getAllEvents(): Promise<Event[]> {

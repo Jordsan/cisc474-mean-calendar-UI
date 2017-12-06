@@ -177,3 +177,8 @@
 .recipient-button span {
     font-size: 1.4em;
 }
+
+
+#title {
+    width: 100%;
+}
