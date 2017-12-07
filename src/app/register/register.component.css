@@ -1,15 +1,18 @@
-.panel-holder{
-    padding:5px;
+.panel-holder {
+    padding: 5px;
 }
 
-.outer_container{
-  margin: 0;
-  width: 100%;
-  padding: 0;
+.outer_container {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    height: 100vh;
+    align-content: center;
 }
 
-.row{
-  margin: auto;
-  width: 600px;
-  padding: 10px;
+.row {
+    margin: auto;
+    width: 600px;
+    padding: 10px;
 }

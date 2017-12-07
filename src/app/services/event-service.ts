@@ -15,7 +15,12 @@ export class EventService {
         'Content-Type': 'application/json',
     });
 
-    constructor(private http: Http) { }
+    currEvent: number;
+    userEvents: Event[];
+
+    constructor(private http: Http) {
+        this.userEvents = new Array();
+    }
 
     createEvent(eventId: number, userIds: number[], date: string,
         startTime: number, endTime: number, title: string, description: string): Observable<any> {
@@ -34,6 +39,33 @@ export class EventService {
             .map(event => {
                 console.log(event.json());
             });
+    }
+
+    updateEvent(eventId: number, userIds: number[], date: string,
+        startTime: number, endTime: number, title: string, description: string): Observable<any> {
+        const finalURL = this.apiURL + 'events/' + eventId;
+        return this.http.put(finalURL,
+            {
+                eventId: eventId,
+                userIds: userIds,
+                date: date,
+                startTime: startTime,
+                endTime: endTime,
+                title: title,
+                description: description
+            },
+            { headers: this.headers })
+            .map(event => {
+                console.log(event.json());
+            });
+    }
+
+    getEventById(id: number): Observable<any> {
+        const finalURL = this.apiURL + 'events/' + id;
+
+        return this.http.get(finalURL, { headers: this.headers}).map(data => {
+            return data.json();
+        });
     }
 
     getAllEvents(): Promise<Event[]> {

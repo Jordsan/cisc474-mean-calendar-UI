@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { EventService } from '../services/event-service';
 
 import { Event } from '../event/event';
+import { UserService } from '../services/user-service';
 
 @Component({
     selector: 'app-day-component',
@@ -34,24 +35,46 @@ export class DayComponent implements OnChanges, OnInit {
 
     events: Array<Event>;
 
+
     @Input()
     eventList: Event[];
 
-    dayEvents: Event[];
+    dayEvents: { event: Event, names: string[] }[];
 
-    constructor(private eventService: EventService, private route: ActivatedRoute) {
+    recipientSearchValue = '';
+    recipientList: { fullName: string, userId: number }[];
+    searchedRecipients: { fullName: string, userId: number }[];
+
+    private eventDate: string;
+    private startTime: string;
+    private endTime: string;
+    private title: string;
+    private description: string;
+    private userIds: number[];
+
+
+    constructor(private eventService: EventService, private userService: UserService, private route: ActivatedRoute) {
         this.events = new Array<Event>();
+        this.dayEvents = new Array();
+        this.recipientList = new Array();
+        this.searchedRecipients = new Array();
+        this.userIds = new Array();
 
         // this.route.paramMap.switchMap((params: ParamMap) =>
         //     params.get('id')).subscribe(id => this.userId = parseInt(id, 10));
     }
 
     ngOnInit(): void {
- 
+
     }
 
     ngOnChanges(): void {
-        this.dayEvents = new Array<Event>();
+
+        this.reload();
+    }
+
+    reload(): void {
+        this.dayEvents = new Array();
 
         let monthNumStr = this.monthNum.toString();
         let dayNumStr = this.dayNum.toString();
@@ -63,13 +86,84 @@ export class DayComponent implements OnChanges, OnInit {
             dayNumStr = '0' + this.dayNum.toString();
         }
 
-        this.dayDate = this.yearNum  + '-' + monthNumStr + '-' + dayNumStr;
+        this.dayDate = this.yearNum + '-' + monthNumStr + '-' + dayNumStr;
 
         for (const event of this.eventList) {
             if (event.date === this.dayDate) {
-                this.dayEvents.push(event);
+                let fullNames: string[] = new Array();
+                for (const id of event.userIds) {
+                    this.userService.getUserById(id).subscribe(user => {
+                        fullNames.push(user.fullName);
+                    });
+                }
+
+                this.dayEvents.push({ event: event, names: fullNames });
             }
         }
+    }
+
+    searchRecipients(input: string): void {
+        this.searchedRecipients = new Array();
+        if (input) {
+            this.userService.getUsersByName(input).subscribe(data => {
+                for (let i = 0; i < data.length; i++) {
+                    if (!this.searchedRecipients.includes(data[i]['fullName'])
+                        && (this.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)
+                        && (data[i]['userId'] !== this.userService.loggedInUser.userId)) {
+                        this.searchedRecipients.push({ fullName: data[i]['fullName'], userId: data[i]['userId'] });
+                    }
+                }
+            });
+        }
+    }
+
+    addRecipient(name: string, id: number): void {
+        this.searchedRecipients = new Array();
+        this.recipientList.push({ fullName: name, userId: id });
+        this.recipientSearchValue = '';
+    }
+
+    removeRecipient(id: number) {
+        this.recipientList = this.recipientList.filter(e => e.userId !== id);
+        console.log(this.recipientList);
+    }
+
+    editEventClick(id: number): void {
+        this.recipientList = new Array();
+        this.searchedRecipients = new Array();
+        this.eventService.currEvent = id;
+        console.log('set to', id);
+        console.log('is now', this.eventService.currEvent);
+    }
+
+    updateEventClick(): void {
+        console.log('is', this.eventService.currEvent);
+
+        this.userIds = new Array();
+        this.userIds.push(this.userService.loggedInUser.userId);
+        for (const entry of this.recipientList) {
+            this.userIds.push(entry.userId);
+        }
+
+        const startTimeSlice = this.startTime.slice(0, 2) + this.startTime.slice(3, this.startTime.length);
+        const startTimeNumb = parseInt(startTimeSlice, 10);
+        const endTimeSlice = this.endTime.slice(0, 2) + this.endTime.slice(3, this.endTime.length);
+        const endTimeNumb = parseInt(endTimeSlice, 10);
+
+        this.eventService.updateEvent(
+            this.eventService.currEvent,
+            this.userIds,
+            this.eventDate,
+            startTimeNumb,
+            endTimeNumb,
+            this.title,
+            this.description
+        ).subscribe(response => {
+            this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+                this.eventService.userEvents = list;
+            });
+        });
+
     }
 
     getMonth() {

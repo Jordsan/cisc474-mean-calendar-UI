@@ -48,7 +48,6 @@ export class MonthComponent implements OnInit, OnChanges {
     private searchTerms = new Subject<string>();
 
 
-    private userEvents: Event[];
 
     constructor(private userService: UserService, private eventService: EventService, private router: Router) {
         this.monthDayArray = new Array();
@@ -56,10 +55,9 @@ export class MonthComponent implements OnInit, OnChanges {
         this.userIds = new Array();
         this.recipientList = new Array();
         this.searchedRecipients = new Array();
-        this.userEvents = new Array();
 
         this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
-            this.userEvents = list;
+            this.eventService.userEvents = list;
         });
     }
 
@@ -83,7 +81,7 @@ export class MonthComponent implements OnInit, OnChanges {
         this.parseArray();
 
         this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
-            this.userEvents = list;
+            this.eventService.userEvents = list;
         });
     }
 
@@ -100,25 +98,31 @@ export class MonthComponent implements OnInit, OnChanges {
         }
     }
 
-    searchRecipients(input: string): void {
-        this.searchedRecipients = new Array();
-        if (input) {
-            this.userService.getUsersByName(input).subscribe(data => {
-                for (let i = 0; i < data.length; i++) {
-                    if (!this.searchedRecipients.includes(data[i]['fullName'])
-                        && (this.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)) {
-                        this.searchedRecipients.push({fullName: data[i]['fullName'], userId: data[i]['userId']});
-                    }
-                }
-            });
-        }
-    }
 
     viewCalendar(input: number): void {
         this.users = new Array();
         this.userService.setActiveUserView(input);
         this.router.navigate(['calendar/' + input]);
         this.searchValue = '';
+
+        this.eventService.getAllUserEvents(input).then(list => {
+            this.eventService.userEvents = list;
+        });
+    }
+
+    searchRecipients(input: string): void {
+        this.searchedRecipients = new Array();
+        if (input) {
+            this.userService.getUsersByName(input).subscribe(data => {
+                for (let i = 0; i < data.length; i++) {
+                    if (!this.searchedRecipients.includes(data[i]['fullName'])
+                        && (this.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)
+                        && (data[i]['userId'] !== this.userService.loggedInUser.userId)) {
+                        this.searchedRecipients.push({fullName: data[i]['fullName'], userId: data[i]['userId']});
+                    }
+                }
+            });
+        }
     }
 
     addRecipient(name: string, id: number): void {
@@ -139,6 +143,7 @@ export class MonthComponent implements OnInit, OnChanges {
 
     createEventClick(): void {
         this.userIds = new Array();
+        this.userIds.push(this.userService.loggedInUser.userId);
         for (const entry of this.recipientList){
             this.userIds.push(entry.userId);
         }
@@ -160,7 +165,7 @@ export class MonthComponent implements OnInit, OnChanges {
                     this.description
                 ).subscribe(response => {
                     this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
-                        this.userEvents = list;
+                        this.eventService.userEvents = list;
                     });
                 });
             }
@@ -175,7 +180,7 @@ export class MonthComponent implements OnInit, OnChanges {
                     this.description
                 ).subscribe(response => {
                     this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
-                        this.userEvents = list;
+                        this.eventService.userEvents = list;
                     });
                 });
             }
@@ -305,11 +310,15 @@ export class MonthComponent implements OnInit, OnChanges {
         this.updateArray();
     }
 
-    updateArray(){
+    updateArray() {
         this.monthDayArray = [];
         this.parseArray();
     }
 
+    logOut(): void {
+        this.userService.loggedInUser = null;
+        this.router.navigate(['login/']);
+    }
 }
 function howManyDaysInMonth(month, year) {
     return new Date(year, month, 0).getDate();

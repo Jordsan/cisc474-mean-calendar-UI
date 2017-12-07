@@ -58,8 +58,18 @@ export class UserService {
 
     }
 
-    getUsersByName(term: string): Observable<string[]> {
+    getUsersByName(term: string): Observable<any[]> {
         const finalURL = this.apiURL + 'users/search/' + term;
+
+        return this.http
+            .get(finalURL)
+            .map(data => {
+                return data.json();
+            });
+    }
+
+    getUserById(id: number): Observable<any> {
+        const finalURL = this.apiURL + 'users/' + id;
 
         return this.http
             .get(finalURL)
