@@ -38,8 +38,8 @@ export class MonthComponent implements OnInit, OnChanges {
     recipientList: { fullName: string, userId: number }[];
     searchedRecipients: { fullName: string, userId: number }[];
 
-    @Input() currentMonthNum: number;
-    @Input() currentYearNum: number;
+    currentMonthNum: number;
+    currentYearNum: number;
 
     dayString: string;
 
@@ -68,11 +68,14 @@ export class MonthComponent implements OnInit, OnChanges {
         const currentTime: Date = new Date();
         // returns the month (from 0 to 11)
         const month: number = currentTime.getMonth() + 1;
+        this.currentMonthNum = month;
         // returns the day of the month (from 1 to 31)
         const day: number = currentTime.getDate();
         // returns the year (four digits)
         const year: number = currentTime.getFullYear();
+        this.currentYearNum = year;
         // write output MM/dd/yyyy
+        this.updateArray();
     }
 
     ngOnChanges() {
@@ -276,7 +279,36 @@ export class MonthComponent implements OnInit, OnChanges {
     searchDays(input: string): void {
         console.log(input);
     }
+    getPreviousMonth(){
+        if(this.currentMonthNum == 1){
+            this.currentYearNum = this.currentYearNum - 1;
+            this.currentMonthNum = 12;
+        }
+        else{
+            this.currentMonthNum = this.currentMonthNum - 1;
+        }
+        this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
+        var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay()
+        this.updateArray();
+    }
 
+    getNextMonth(){
+        if(this.currentMonthNum == 12){
+            this.currentYearNum = this.currentYearNum + 1;
+            this.currentMonthNum = 1;
+        }
+        else{
+            this.currentMonthNum = this.currentMonthNum + 1;
+        }
+        this.daysInMonth = howManyDaysInMonth(this.currentMonthNum,this.currentYearNum);
+        var numberOfDaysPercedingFirstDay = new Date(this.currentYearNum + "-" + this.currentMonthNum).getDay();
+        this.updateArray();
+    }
+
+    updateArray(){
+        this.monthDayArray = [];
+        this.parseArray();
+    }
 
 }
 function howManyDaysInMonth(month, year) {

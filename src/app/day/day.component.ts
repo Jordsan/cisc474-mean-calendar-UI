@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { EventService } from '../services/event-service';
 
-import { Event } from '../Event/event';
+import { Event } from '../event/event';
 
 @Component({
     selector: 'app-day-component',
