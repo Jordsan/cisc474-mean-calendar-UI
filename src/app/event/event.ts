@@ -1,6 +1,6 @@
 export interface Event {
     eventId: number;
-    userId: number;
+    userIds: number[];
     date: string;
     startTime: number;
     endTime: number;

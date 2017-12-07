@@ -32,7 +32,7 @@ export class EventService {
             },
             { headers: this.headers })
             .map(event => {
-                console.log(event);
+                console.log(event.json());
             });
     }
 

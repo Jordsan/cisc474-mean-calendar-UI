@@ -7,17 +7,12 @@
                     <div *ngFor="let user of users" (click)="viewCalendar(user.userId)" class="search-result">
                         {{ user.fullName }}
                     </div>
-                    <!-- <div *ngFor="let user of users" class="search-result">
-                            <a [routerLink]="['/calendar', user.id]">
-                                {{ user.fullName }}
-                            </a>
-                        </div> -->
                 </div>
                 <button class="add" data-toggle="modal" data-target="#modal" (click)="addEventClick()">Add Event</button>
             </div>
             <div class="logStuff">
                 <p class="username">USERNAME</p>
-                <button class="logout">LOGOUT</button>
+                <button class="logout">Log Out</button>
             </div>
         </div>
     </div>
@@ -30,7 +25,7 @@
     <div *ngFor="let i of [0, 1, 2, 3, 4, 5]" class="row week-row">
         <div *ngFor="let j of [1, 2, 3, 4, 5, 6, 7]" class="col-lg-1 col-xs-1 col-sm-1 col-md-1 day-box">
             <app-day-component [userId]="this.userService.activeUserView" [dayNum]="monthDayArray[(7 * i) + j - 1]" [monthNum]="currentMonthNum"
-                [yearNum]="currentYearNum" [weekday]="j"></app-day-component>
+                [yearNum]="currentYearNum" [weekday]="j" [eventList]="userEvents"></app-day-component>
         </div>
     </div>
 
@@ -138,8 +133,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="createEventClick()">Create Event</button>
+                    <button type="button" class="btn btn-primary" (click)="createEventClick()" data-dismiss="modal">Create Event</button>
                 </div>
             </div>
         </div>

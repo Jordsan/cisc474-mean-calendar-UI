@@ -5,6 +5,7 @@ import { UserService } from '../services/user-service';
 import { EventService } from '../services/event-service';
 import { Router } from '@angular/router';
 import { User } from '../user/user';
+import { Event } from '../event/event';
 
 
 // Observable class extensions
@@ -27,8 +28,8 @@ export class MonthComponent implements OnInit, OnChanges {
     monthDayArray: number[];
 
     private eventDate: string;
-    private startTime: number;
-    private endTime: number;
+    private startTime: string;
+    private endTime: string;
     private title: string;
     private description: string;
     private userIds: number[];
@@ -46,13 +47,20 @@ export class MonthComponent implements OnInit, OnChanges {
     users: { fullName: string, userId: number }[];
     private searchTerms = new Subject<string>();
 
+
+    private userEvents: Event[];
+
     constructor(private userService: UserService, private eventService: EventService, private router: Router) {
         this.monthDayArray = new Array();
         this.users = new Array();
         this.userIds = new Array();
         this.recipientList = new Array();
         this.searchedRecipients = new Array();
+        this.userEvents = new Array();
 
+        this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+            this.userEvents = list;
+        });
     }
 
     ngOnInit() {
@@ -70,6 +78,10 @@ export class MonthComponent implements OnInit, OnChanges {
     ngOnChanges() {
         this.monthDayArray = [];
         this.parseArray();
+
+        this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+            this.userEvents = list;
+        });
     }
 
     search(input: string): void {
@@ -123,9 +135,49 @@ export class MonthComponent implements OnInit, OnChanges {
     }
 
     createEventClick(): void {
-        // this.eventService.createEvent(
+        this.userIds = new Array();
+        for (const entry of this.recipientList){
+            this.userIds.push(entry.userId);
+        }
 
-        // );
+        const startTimeSlice = this.startTime.slice(0, 2) + this.startTime.slice(3, this.startTime.length);
+        const startTimeNumb = parseInt(startTimeSlice, 10);
+        const endTimeSlice = this.endTime.slice(0, 2) + this.endTime.slice(3, this.endTime.length);
+        const endTimeNumb = parseInt(endTimeSlice, 10);
+
+        this.eventService.getAllEvents().then(data => {
+            if (data.length != null) {
+                this.eventService.createEvent(
+                    data.length + 1,
+                    this.userIds,
+                    this.eventDate,
+                    startTimeNumb,
+                    endTimeNumb,
+                    this.title,
+                    this.description
+                ).subscribe(response => {
+                    this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+                        this.userEvents = list;
+                    });
+                });
+            }
+            else {
+                this.eventService.createEvent(
+                    1,
+                    this.userIds,
+                    this.eventDate,
+                    startTimeNumb,
+                    endTimeNumb,
+                    this.title,
+                    this.description
+                ).subscribe(response => {
+                    this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+                        this.userEvents = list;
+                    });
+                });
+            }
+        });
+
     }
 
     getWeekDay(num: number): string {

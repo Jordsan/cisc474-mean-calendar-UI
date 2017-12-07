@@ -34,6 +34,11 @@ export class DayComponent implements OnChanges, OnInit {
 
     events: Array<Event>;
 
+    @Input()
+    eventList: Event[];
+
+    dayEvents: Event[];
+
     constructor(private eventService: EventService, private route: ActivatedRoute) {
         this.events = new Array<Event>();
 
@@ -42,17 +47,29 @@ export class DayComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
-
+ 
     }
 
     ngOnChanges(): void {
-        this.dayDate = this.monthNum + '-' + this.dayNum + '-' + this.yearNum;
+        this.dayEvents = new Array<Event>();
 
-        this.eventService.getUserDateEvents(this.userId, this.dayDate).then(list => this.events = list);
-    }
+        let monthNumStr = this.monthNum.toString();
+        let dayNumStr = this.dayNum.toString();
 
-    searchDays(input: string): void {
-        console.log(input);
+        if (this.monthNum < 10) {
+            monthNumStr = '0' + this.monthNum.toString();
+        }
+        if (this.dayNum < 10) {
+            dayNumStr = '0' + this.dayNum.toString();
+        }
+
+        this.dayDate = this.yearNum  + '-' + monthNumStr + '-' + dayNumStr;
+
+        for (const event of this.eventList) {
+            if (event.date === this.dayDate) {
+                this.dayEvents.push(event);
+            }
+        }
     }
 
     getMonth() {

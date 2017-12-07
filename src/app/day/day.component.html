@@ -1,7 +1,7 @@
 <div class="day-box">
     <div *ngIf="dayNum === 0"></div>
     <div *ngIf="dayNum > 0" class="day-num">{{ dayNum }}</div>
-    <span class='event-wrapper' *ngFor="let event of events">
+    <span class='event-wrapper' *ngFor="let event of dayEvents">
         <ng-template #content>
             <span class="event-info-users">Participants: 
                 <span *ngFor="let user of event.userIds; index as i">
