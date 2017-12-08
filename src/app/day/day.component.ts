@@ -110,7 +110,7 @@ export class DayComponent implements OnChanges, OnInit {
                     if (!this.eventService.searchedRecipients.includes(data[i]['fullName'])
                         && (this.eventService.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)
                         && (data[i]['userId'] !== this.userService.loggedInUser.userId)) {
-                            this.eventService.searchedRecipients.push({ fullName: data[i]['fullName'], userId: data[i]['userId'] });
+                        this.eventService.searchedRecipients.push({ fullName: data[i]['fullName'], userId: data[i]['userId'] });
                     }
                 }
             });
@@ -125,15 +125,13 @@ export class DayComponent implements OnChanges, OnInit {
 
     removeRecipient(id: number) {
         this.eventService.recipientList = this.eventService.recipientList.filter(e => e.userId !== id);
-        console.log(this.eventService.recipientList);
     }
 
     editEventClick(id: number): void {
         this.eventService.recipientList = new Array();
         this.eventService.searchedRecipients = new Array();
         this.eventService.currEvent = id;
-        console.log('set to', id);
-        console.log('is now', this.eventService.currEvent);
+
 
         this.eventService.getEventById(id).subscribe(event => {
             this.eventService.recipientList = new Array();
@@ -165,10 +163,12 @@ export class DayComponent implements OnChanges, OnInit {
 
             for (const userId of event.userIds) {
                 this.userService.getUserById(userId).subscribe(user => {
-                    this.eventService.recipientList.push({
-                        fullName: user.fullName,
-                        userId: user.userId
-                    });
+                    if (user.userId !== this.userService.loggedInUser.userId) {
+                        this.eventService.recipientList.push({
+                            fullName: user.fullName,
+                            userId: user.userId
+                        });
+                    }
                 });
             }
         });
@@ -176,16 +176,11 @@ export class DayComponent implements OnChanges, OnInit {
     }
 
     updateEventClick(): void {
-        console.log('is', this.eventService.currEvent);
-
         this.eventService.userIds = new Array();
         this.eventService.userIds.push(this.userService.loggedInUser.userId);
         for (const entry of this.eventService.recipientList) {
             this.eventService.userIds.push(entry.userId);
         }
-
-        console.log(this.eventService.startTime);
-        console.log(this.eventService.endTime);
 
         const startTimeSlice = this.eventService.startTime.slice(0, 2) + this.eventService.startTime
             .slice(3, this.eventService.startTime.length);
@@ -207,6 +202,14 @@ export class DayComponent implements OnChanges, OnInit {
             });
         });
 
+    }
+
+    deleteEventClick(id: number): void {
+        this.eventService.deleteEvent(id).subscribe(none => {
+            this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
+                this.eventService.userEvents = list;
+            });
+        });
     }
 
     getMonth() {

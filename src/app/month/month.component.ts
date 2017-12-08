@@ -90,7 +90,8 @@ export class MonthComponent implements OnInit, OnChanges {
         if (input) {
             this.userService.getUsersByName(input).subscribe(data => {
                 for (let i = 0; i < data.length; i++) {
-                    if (!this.users.includes(data[i]['fullName'])) {
+                    if (!this.users.includes(data[i]['fullName'])
+                    && (data[i]['userId'] !== this.userService.loggedInUser.userId)) {
                         this.users.push({fullName: data[i]['fullName'], userId: data[i]['userId']});
                     }
                 }
@@ -106,6 +107,15 @@ export class MonthComponent implements OnInit, OnChanges {
         this.searchValue = '';
 
         this.eventService.getAllUserEvents(input).then(list => {
+            this.eventService.userEvents = list;
+        });
+    }
+
+    returnHome(): void {
+        this.userService.setActiveUserView(this.userService.loggedInUser.userId);
+        this.router.navigate(['calendar/' + this.userService.loggedInUser.userId]);
+
+        this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
             this.eventService.userEvents = list;
         });
     }
@@ -139,6 +149,12 @@ export class MonthComponent implements OnInit, OnChanges {
     addEventClick(): void {
         this.recipientList = new Array();
         this.searchedRecipients = new Array();
+
+        this.eventDate = '';
+        this.startTime = '';
+        this.endTime = '';
+        this.title = '';
+        this.description = '';
     }
 
     createEventClick(): void {
@@ -155,8 +171,10 @@ export class MonthComponent implements OnInit, OnChanges {
 
         this.eventService.getAllEvents().then(data => {
             if (data.length != null) {
+                const newId = data[0]['eventId'] + 1;
+
                 this.eventService.createEvent(
-                    data.length + 1,
+                    newId,
                     this.userIds,
                     this.eventDate,
                     startTimeNumb,

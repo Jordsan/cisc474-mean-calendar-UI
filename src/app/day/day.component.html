@@ -40,9 +40,13 @@
                     <span class="text">{{ event.event.description }}</span>
                 </span>
                 <hr>
-                <button class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-update" (click)="editEventClick(event.event.eventId)" (click)="pop.hide()">
-                    Edit Event
-                </button>
+                <span *ngIf="this.userService.loggedInUser.userId === this.userService.activeUserView">
+                    <button type="button" class="btn delete-button" (click)="deleteEventClick(event.event.eventId)" (click)="pop.hide()">Delete Event</button>
+                    <button class="btn btn-primary edit-button" data-toggle="modal" data-target="#modal-update" (click)="editEventClick(event.event.eventId)"
+                        (click)="pop.hide()">
+                        Edit Event
+                    </button>
+                </span>
             </div>
         </ng-template>
         <div class="row">
@@ -96,7 +100,8 @@
                             Enter Recipients:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="this.eventService.recipientSearchValue" type="text" placeholder="Search..." class="search-recipients" (keyup)="searchRecipients(this.eventService.recipientSearchValue)">
+                            <input [(ngModel)]="this.eventService.recipientSearchValue" type="text" placeholder="Search..." class="search-recipients"
+                                (keyup)="searchRecipients(this.eventService.recipientSearchValue)">
                             <div class="search-recipients-dropdown">
                                 <div *ngFor="let user of this.eventService.searchedRecipients" (click)="addRecipient(user.fullName, user.userId)" class="search-recipients-result">
                                     {{ user.fullName }}

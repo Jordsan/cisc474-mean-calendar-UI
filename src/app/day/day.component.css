@@ -30,7 +30,17 @@
 .edit-button {
     float: right;
     margin-bottom: 10px;
-    font-size: 1.0em !important;
+}
+
+.delete-button {
+    float: left;
+    margin-bottom: 10px;
+    background: red;
+    color: white;
+}
+
+.delete-button:hover {
+    background: #c50000;
 }
 
 hr {
@@ -109,3 +119,4 @@ hr {
 #title {
     width: 100%;
 }
+

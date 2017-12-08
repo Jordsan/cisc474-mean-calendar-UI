@@ -8,7 +8,10 @@
                         {{ user.fullName }}
                     </div>
                 </div>
-                <button class="add" data-toggle="modal" data-target="#modal" (click)="addEventClick()">Add Event</button>
+                <button class="add" (click)="returnHome()">My Calendar</button>                
+                <span *ngIf="this.userService.loggedInUser.userId === this.userService.activeUserView">
+                    <button class="add" data-toggle="modal" data-target="#modal" (click)="addEventClick()">Add Event</button>
+                </span>
             </div>
             <div class="logStuff">
                 <p class="username">{{ this.userService.loggedInUser.fullName }}</p>
@@ -16,16 +19,36 @@
             </div>
         </div>
     </div>
-    <div class="row week-row">
+    <div class="row month-row">
         <div class="monthTitle">
-            <button id="clickPrevious" class='previous' (click)="getPreviousMonth()">
-                <span>&larr;</span>
-            </button>
-            {{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}
-            <button id="clickNext" class='next' (click)="getNextMonth()">
-                &rarr;
-            </button>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-1">
+                <button id="clickPrevious" class='previous' (click)="getPreviousMonth()">
+                    <span>&larr;</span>
+                </button>
+            </div>
+            <div class="col-lg-6">
+                {{ getCurrentMonthTitle()}} {{ getCurrentYearTitle()}}
+            </div>
+            <div class="col-lg-1">
+                <button id="clickNext" class='next' (click)="getNextMonth()">
+                    &rarr;
+                </button>
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-1">
+
+            </div>
         </div>
+    </div>
+    <div class="row week-row">
         <span *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]" class="day-of-week col-xs-1 col-lg-1 col-sm-1 col-md-1">
             {{ getWeekDay(day) }}
         </span>

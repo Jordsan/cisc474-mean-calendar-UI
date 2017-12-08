@@ -74,6 +74,20 @@ export class EventService {
             });
     }
 
+    deleteEvent(id: number): Observable<any> {
+        const finalURL = this.apiURL + 'events/' + id;
+
+        return this.http.delete(finalURL, { headers: this.headers});
+    }
+
+    getEventMax(): Observable<any> {
+        const finalURL = this.apiURL + 'events/ids/max';
+
+        return this.http.get(finalURL, { headers: this.headers}).map(data => {
+            return data.json();
+        });
+    }
+
     getEventById(id: number): Observable<any> {
         const finalURL = this.apiURL + 'events/' + id;
 
