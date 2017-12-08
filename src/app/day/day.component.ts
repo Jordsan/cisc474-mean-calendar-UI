@@ -103,14 +103,14 @@ export class DayComponent implements OnChanges, OnInit {
     }
 
     searchRecipients(input: string): void {
-        this.searchedRecipients = new Array();
+        this.eventService.searchedRecipients = new Array();
         if (input) {
             this.userService.getUsersByName(input).subscribe(data => {
                 for (let i = 0; i < data.length; i++) {
-                    if (!this.searchedRecipients.includes(data[i]['fullName'])
-                        && (this.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)
+                    if (!this.eventService.searchedRecipients.includes(data[i]['fullName'])
+                        && (this.eventService.recipientList.filter(e => e.userId === data[i]['userId']).length === 0)
                         && (data[i]['userId'] !== this.userService.loggedInUser.userId)) {
-                        this.searchedRecipients.push({ fullName: data[i]['fullName'], userId: data[i]['userId'] });
+                            this.eventService.searchedRecipients.push({ fullName: data[i]['fullName'], userId: data[i]['userId'] });
                     }
                 }
             });
@@ -118,46 +118,89 @@ export class DayComponent implements OnChanges, OnInit {
     }
 
     addRecipient(name: string, id: number): void {
-        this.searchedRecipients = new Array();
-        this.recipientList.push({ fullName: name, userId: id });
-        this.recipientSearchValue = '';
+        this.eventService.searchedRecipients = new Array();
+        this.eventService.recipientList.push({ fullName: name, userId: id });
+        this.eventService.recipientSearchValue = '';
     }
 
     removeRecipient(id: number) {
-        this.recipientList = this.recipientList.filter(e => e.userId !== id);
-        console.log(this.recipientList);
+        this.eventService.recipientList = this.eventService.recipientList.filter(e => e.userId !== id);
+        console.log(this.eventService.recipientList);
     }
 
     editEventClick(id: number): void {
-        this.recipientList = new Array();
-        this.searchedRecipients = new Array();
+        this.eventService.recipientList = new Array();
+        this.eventService.searchedRecipients = new Array();
         this.eventService.currEvent = id;
         console.log('set to', id);
         console.log('is now', this.eventService.currEvent);
+
+        this.eventService.getEventById(id).subscribe(event => {
+            this.eventService.recipientList = new Array();
+
+            this.eventService.eventDate = event.date;
+            this.eventService.description = event.description;
+            this.eventService.title = event.title;
+
+            let sTime = event.startTime;
+            let sString = sTime.toString();
+            let eTime = event.endTime;
+            let eString = eTime.toString();
+
+            let sString2 = sString;
+            let eString2 = eString;
+
+            if (sTime < 1000) {
+                sString2 = '0' + sString;
+            }
+            if (eTime < 1000) {
+                eString2 = '0' + eString;
+            }
+
+            let sStringSlice = sString2.slice(0, 2) + ':' + sString2.slice(2, sString2.length);
+            let eStringSlice = eString2.slice(0, 2) + ':' + eString2.slice(2, eString2.length);
+
+            this.eventService.startTime = sStringSlice;
+            this.eventService.endTime = eStringSlice;
+
+            for (const userId of event.userIds) {
+                this.userService.getUserById(userId).subscribe(user => {
+                    this.eventService.recipientList.push({
+                        fullName: user.fullName,
+                        userId: user.userId
+                    });
+                });
+            }
+        });
+
     }
 
     updateEventClick(): void {
         console.log('is', this.eventService.currEvent);
 
-        this.userIds = new Array();
-        this.userIds.push(this.userService.loggedInUser.userId);
-        for (const entry of this.recipientList) {
-            this.userIds.push(entry.userId);
+        this.eventService.userIds = new Array();
+        this.eventService.userIds.push(this.userService.loggedInUser.userId);
+        for (const entry of this.eventService.recipientList) {
+            this.eventService.userIds.push(entry.userId);
         }
 
-        const startTimeSlice = this.startTime.slice(0, 2) + this.startTime.slice(3, this.startTime.length);
+        console.log(this.eventService.startTime);
+        console.log(this.eventService.endTime);
+
+        const startTimeSlice = this.eventService.startTime.slice(0, 2) + this.eventService.startTime
+            .slice(3, this.eventService.startTime.length);
         const startTimeNumb = parseInt(startTimeSlice, 10);
-        const endTimeSlice = this.endTime.slice(0, 2) + this.endTime.slice(3, this.endTime.length);
+        const endTimeSlice = this.eventService.endTime.slice(0, 2) + this.eventService.endTime.slice(3, this.eventService.endTime.length);
         const endTimeNumb = parseInt(endTimeSlice, 10);
 
         this.eventService.updateEvent(
             this.eventService.currEvent,
-            this.userIds,
-            this.eventDate,
+            this.eventService.userIds,
+            this.eventService.eventDate,
             startTimeNumb,
             endTimeNumb,
-            this.title,
-            this.description
+            this.eventService.title,
+            this.eventService.description
         ).subscribe(response => {
             this.eventService.getAllUserEvents(this.userService.loggedInUser.userId).then(list => {
                 this.eventService.userEvents = list;

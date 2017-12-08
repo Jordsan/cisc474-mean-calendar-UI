@@ -18,8 +18,22 @@ export class EventService {
     currEvent: number;
     userEvents: Event[];
 
+    recipientSearchValue = '';
+    recipientList: { fullName: string, userId: number }[];
+    searchedRecipients: { fullName: string, userId: number }[];
+
+    eventDate: string;
+    startTime: string;
+    endTime: string;
+    title: string;
+    description: string;
+    userIds: number[];
+
     constructor(private http: Http) {
         this.userEvents = new Array();
+        this.recipientList = new Array();
+        this.searchedRecipients = new Array();
+        this.userIds = new Array();
     }
 
     createEvent(eventId: number, userIds: number[], date: string,

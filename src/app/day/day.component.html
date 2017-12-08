@@ -72,7 +72,7 @@
                             Event Date:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="eventDate" type="date" id="date">
+                            <input [(ngModel)]="this.eventService.eventDate" type="date" id="date">
                         </div>
                     </div>
                     <div class="row">
@@ -80,7 +80,7 @@
                             Start Time:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="startTime" type="time" class="timeInput">
+                            <input [(ngModel)]="this.eventService.startTime" type="time" class="timeInput">
                         </div>
                     </div>
                     <div class="row">
@@ -88,7 +88,7 @@
                             End Time:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="endTime" type="time" class="timeInput">
+                            <input [(ngModel)]="this.eventService.endTime" type="time" class="timeInput">
                         </div>
                     </div>
                     <div class="row ">
@@ -96,9 +96,9 @@
                             Enter Recipients:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="recipientSearchValue" type="text" placeholder="Search..." class="search-recipients" (keyup)="searchRecipients(recipientSearchValue)">
+                            <input [(ngModel)]="this.eventService.recipientSearchValue" type="text" placeholder="Search..." class="search-recipients" (keyup)="searchRecipients(this.eventService.recipientSearchValue)">
                             <div class="search-recipients-dropdown">
-                                <div *ngFor="let user of searchedRecipients" (click)="addRecipient(user.fullName, user.userId)" class="search-recipients-result">
+                                <div *ngFor="let user of this.eventService.searchedRecipients" (click)="addRecipient(user.fullName, user.userId)" class="search-recipients-result">
                                     {{ user.fullName }}
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                             Recipients -
                         </div>
                         <div class="col-lg-8">
-                            <span *ngFor="let user of recipientList; index as i">
+                            <span *ngFor="let user of this.eventService.recipientList; index as i">
                                 <span>
                                     {{ user.fullName }}
                                     <button (click)="removeRecipient(user.userId)" class="recipient-button">
@@ -127,7 +127,7 @@
                             Title:
                         </div>
                         <div class="col-lg-8">
-                            <input [(ngModel)]="title" type="text" id="title">
+                            <input [(ngModel)]="this.eventService.title" type="text" id="title">
                         </div>
                     </div>
                     <div class="row">
@@ -135,7 +135,7 @@
                             Description:
                         </div>
                         <div class="col-lg-8">
-                            <textarea rows="4" [(ngModel)]="description" id="description"></textarea>
+                            <textarea rows="4" [(ngModel)]="this.eventService.description" id="description"></textarea>
                         </div>
                     </div>
 
